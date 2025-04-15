@@ -18,11 +18,8 @@
     "paths": {
       "components/*": ["components/*"],
       "pages/*": ["pages/*"],
-      "styles/*": ["styles/*"],
-      "context/*": ["context/*"],
-      "helpers/*": ["helpers/*"],
-      "hooks/*": ["hooks/*"],
-      "service/*": ["service/*"],
+      "store/*": ["store/*"],
+      "types/*": ["types/*"],
       "utils/*": ["utils/*"]
     }
   },
