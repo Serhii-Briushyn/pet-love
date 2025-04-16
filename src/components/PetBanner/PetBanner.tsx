@@ -1,23 +1,23 @@
 type PetBannerProps = {
-  page: "registration" | "login"
+  page: "register" | "login"
 }
 
 const PetBanner: React.FC<PetBannerProps> = ({ page }) => {
   const bannerImg =
-    page === "registration"
+    page === "register"
       ? "/images/cat-img.png"
       : page === "login"
         ? "/images/dog-img.png"
         : undefined
 
-  const bannerAlt = page === "registration" ? "Cat" : "Dog"
+  const bannerAlt = page === "register" ? "Cat" : "Dog"
 
-  const name = page === "registration" ? "Jack" : "Rich"
+  const name = page === "register" ? "Jack" : "Rich"
 
-  const date = page === "registration" ? "18.10.2021" : "21.09.2020"
+  const date = page === "register" ? "18.10.2021" : "21.09.2020"
 
   const description =
-    page === "registration"
+    page === "register"
       ? "Jack is a gray Persian cat with green eyes. He loves to be pampered and groomed, and enjoys playing with toys."
       : "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
 

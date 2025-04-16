@@ -4,7 +4,7 @@ import { getImagePath } from "utils/getPetImagePath"
 import { useScreenType } from "utils/useScreenType"
 
 type PetBlockProps = {
-  page: "registration" | "login" | "add"
+  page: "register" | "login" | "add"
 }
 
 const PetBlock: React.FC<PetBlockProps> = ({ page }) => {
@@ -12,11 +12,11 @@ const PetBlock: React.FC<PetBlockProps> = ({ page }) => {
 
   if (!screen) return null
 
-  const bg1x = getImagePath({ page, screen, size: "1x", type: "bg" })
-  const bg2x = getImagePath({ page, screen, size: "2x", type: "bg" })
+  const bg1x = getImagePath({ page, screen, size: "1x", type: "bg", folder: "pet-block" })
+  const bg2x = getImagePath({ page, screen, size: "2x", type: "bg", folder: "pet-block" })
 
-  const img1x = getImagePath({ page, screen, size: "1x", type: "img" })
-  const img2x = getImagePath({ page, screen, size: "2x", type: "img" })
+  const img1x = getImagePath({ page, screen, size: "1x", type: "img", folder: "pet-block" })
+  const img2x = getImagePath({ page, screen, size: "2x", type: "img", folder: "pet-block" })
 
   const backgroundStyle = {
     backgroundImage: `
@@ -35,7 +35,7 @@ const PetBlock: React.FC<PetBlockProps> = ({ page }) => {
     page === "add" ? "tablet:h-[248px] h-[213px]" : "tablet:h-[302px] h-70",
   )
 
-  const showBanner = page === "registration" || page === "login"
+  const showBanner = page === "register" || page === "login"
 
   return (
     <div className={containerClass} style={backgroundStyle}>

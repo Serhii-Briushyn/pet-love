@@ -24,7 +24,7 @@ const PasswordInput = ({
 }: PasswordInputProps) => {
   return (
     <label>
-      <div className="relative">
+      <div className="tablet:text-base relative text-sm leading-tight">
         <input
           className={`rounded-main tablet:p-4 w-full border p-3 transition-all duration-200 ease-in outline-none ${
             error
