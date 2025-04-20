@@ -1,10 +1,10 @@
-import Logo from "components/Logo/Logo"
-import { useScreenType } from "utils/useScreenType"
+import Logo from "components/Logo/Logo";
+import { useScreenType } from "utils/useScreenType";
 
 const MainPage = () => {
-  const screen = useScreenType()
+  const screen = useScreenType();
 
-  if (!screen) return null
+  if (!screen) return null;
 
   const backgroundStyle = {
     backgroundImage: `
@@ -14,15 +14,18 @@ const MainPage = () => {
     )
   `,
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "center top",
+    backgroundPosition: "center",
     backgroundSize: "cover",
-  }
+  };
 
   return (
-    <div className="container m-auto h-screen w-full" style={backgroundStyle}>
-      <Logo />
+    <div
+      className="flex items-center justify-center h-screen w-full"
+      style={backgroundStyle}
+    >
+      <Logo page="main" />
     </div>
-  )
-}
+  );
+};
 
-export default MainPage
+export default MainPage;

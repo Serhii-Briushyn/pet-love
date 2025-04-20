@@ -1,28 +1,29 @@
-import Layout from "components/Layout"
-import RestrictedRoute from "components/RestrictedRoute"
+import { Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
+import Layout from "components/Layout";
+import RestrictedRoute from "components/RestrictedRoute";
 // import { RestrictedRoute } from "components/RestrictedRoute"
-import LoginPage from "pages/LoginPage/LoginPage"
-import MainPage from "pages/MainPage/MainPage"
-import RegisterPage from "pages/RegisterPage/RegisterPage"
-import { Suspense } from "react"
-import { Toaster } from "react-hot-toast"
-import { useSelector } from "react-redux"
-import { Route, Routes } from "react-router-dom"
-import { selectIsLoading } from "store/auth/selectors"
+import LoginPage from "pages/LoginPage/LoginPage";
+import MainPage from "pages/MainPage/MainPage";
+import RegisterPage from "pages/RegisterPage/RegisterPage";
+import HomePage from "pages/HomePage/HomePage";
+import { useAuthInit } from "hooks/useAuthInit";
+import Loader from "components/Loader/Loader";
+import NewsPage from "pages/NewsPage/NewsPage";
 
 function App() {
-  const IsLoading = useSelector(selectIsLoading)
+  useAuthInit();
 
-  return IsLoading ? (
-    <p>Lading</p>
-  ) : (
+  return (
     <>
-      <Suspense fallback={"Loader"}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPage />} />
-            {/* <Route path="home" element={<HomePage />} /> */}
-            {/* <Route path="news" element={<NewsPage />} /> */}
+            <Route path="home" element={<HomePage />} />
+            <Route path="news" element={<NewsPage />} />
             {/* <Route path="notices" element={<NoticesPage />} /> */}
             {/* <Route path="friends" element={<FriendsPage />} /> */}
             {/* Restricted routes for unauthorized only */}
@@ -33,7 +34,7 @@ function App() {
             <Route
               path="register"
               element={
-                <RestrictedRoute redirectTo="/profile">
+                <RestrictedRoute redirectTo="/home">
                   <RegisterPage />
                 </RestrictedRoute>
               }
@@ -41,7 +42,7 @@ function App() {
             <Route
               path="login"
               element={
-                <RestrictedRoute redirectTo="/profile">
+                <RestrictedRoute redirectTo="/home">
                   <LoginPage />
                 </RestrictedRoute>
               }
@@ -57,7 +58,7 @@ function App() {
 
       <Toaster position="top-right" reverseOrder={false} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,14 +1,15 @@
-import { InputHTMLAttributes } from "react"
-import { FieldError } from "react-hook-form"
+import clsx from "clsx";
+import { InputHTMLAttributes } from "react";
+import { FieldError } from "react-hook-form";
 
 interface PasswordInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  type: string
-  placeholder: string
-  error?: FieldError
-  touched?: boolean
-  show: boolean
-  toggle: () => void
-  successMessage?: string
+  type: string;
+  placeholder: string;
+  error?: FieldError;
+  touched?: boolean;
+  show: boolean;
+  toggle: () => void;
+  successMessage?: string;
 }
 
 const PasswordInput = ({
@@ -22,17 +23,21 @@ const PasswordInput = ({
   value,
   ...rest
 }: PasswordInputProps) => {
+  const inputStyles = clsx(
+    "w-full border rounded-main p-3 outline-none transition-all duration-200 ease-in tablet:p-4",
+    {
+      "border-red": error,
+      "border-green": touched && !error,
+      "hover:border-primary focus:border-primary border-black/15":
+        !error && !touched,
+    }
+  );
+
   return (
     <label>
-      <div className="tablet:text-base relative text-sm leading-tight">
+      <div className="relative leading-tight">
         <input
-          className={`rounded-main tablet:p-4 w-full border p-3 transition-all duration-200 ease-in outline-none ${
-            error
-              ? "border-red"
-              : touched
-                ? "border-green"
-                : "hover:border-primary focus:border-primary border-black/15"
-          }`}
+          className={inputStyles}
           type={show ? "text" : "password"}
           placeholder={placeholder}
           autoComplete={type}
@@ -42,15 +47,17 @@ const PasswordInput = ({
         <button
           type="button"
           onClick={toggle}
-          className="tablet:right-4 tablet:w-5.5 tablet:h-5.5 group absolute top-1/2 right-3 h-4.5 w-4.5 -translate-y-1/2 cursor-pointer transition-all duration-200 ease-in"
+          className="absolute top-1/2 right-3 -translate-y-1/2 h-4.5 w-4.5 cursor-pointer group tablet:right-4 tablet:w-5.5 tablet:h-5.5 transition-all duration-200 ease-in"
         >
-          <svg className="stroke-primary group-hover:stroke-primary-hover h-full w-full fill-none">
-            <use href={show ? "/sprite.svg#icon-eye" : "/sprite.svg#icon-eye-off"} />
+          <svg className="stroke-primary h-full w-full fill-none group-hover:stroke-primary-hover">
+            <use
+              href={show ? "/sprite.svg#icon-eye" : "/sprite.svg#icon-eye-off"}
+            />
           </svg>
         </button>
 
         {touched && value && (
-          <div className="tablet:w-5.5 tablet:h-5.5 absolute top-1/2 right-12 h-4.5 w-4.5 -translate-y-1/2">
+          <div className="absolute h-4.5 w-4.5 top-1/2 right-12 -translate-y-1/2 tablet:w-5.5 tablet:h-5.5">
             {error ? (
               <svg className="stroke-red h-full w-full fill-none">
                 <use href="/sprite.svg#icon-close" />
@@ -63,12 +70,18 @@ const PasswordInput = ({
           </div>
         )}
       </div>
-      {error && <div className="text-red tablet:text-xs text-[10px]">{error.message}</div>}
+      {error && (
+        <div className="text-red tablet:text-xs text-[10px]">
+          {error.message}
+        </div>
+      )}
       {touched && !error && value && (
-        <div className="text-green tablet:text-xs text-[10px]">{successMessage}</div>
+        <div className="text-green tablet:text-xs text-[10px]">
+          {successMessage}
+        </div>
       )}
     </label>
-  )
-}
+  );
+};
 
-export default PasswordInput
+export default PasswordInput;

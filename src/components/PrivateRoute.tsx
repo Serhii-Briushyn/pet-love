@@ -8,7 +8,10 @@ interface RestrictedRouteProps {
   redirectTo?: string
 }
 
-export const PrivateRoute = ({ children, redirectTo = "/login" }: RestrictedRouteProps) => {
+const PrivateRoute = ({ children, redirectTo = "/login" }: RestrictedRouteProps) => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
+
   return isLoggedIn ? children : <Navigate to={redirectTo} />
 }
+
+export default PrivateRoute

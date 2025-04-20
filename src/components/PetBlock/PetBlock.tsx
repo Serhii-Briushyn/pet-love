@@ -1,41 +1,40 @@
-import clsx from "clsx"
-import PetBanner from "components/PetBanner/PetBanner"
-import { getImagePath } from "utils/getPetImagePath"
-import { useScreenType } from "utils/useScreenType"
+import clsx from "clsx";
+import PetBanner from "components/PetBanner/PetBanner";
+import { useScreenType } from "utils/useScreenType";
 
 type PetBlockProps = {
-  page: "register" | "login" | "add"
-}
+  page: "register" | "login" | "add";
+};
 
 const PetBlock: React.FC<PetBlockProps> = ({ page }) => {
-  const screen = useScreenType()
+  const screen = useScreenType();
 
-  if (!screen) return null
+  if (!screen) return null;
 
-  const bg1x = getImagePath({ page, screen, size: "1x", type: "bg", folder: "pet-block" })
-  const bg2x = getImagePath({ page, screen, size: "2x", type: "bg", folder: "pet-block" })
-
-  const img1x = getImagePath({ page, screen, size: "1x", type: "img", folder: "pet-block" })
-  const img2x = getImagePath({ page, screen, size: "2x", type: "img", folder: "pet-block" })
+  const img1x = `/images/pet-block/${page}/pet-${screen}-img.png`;
+  const img2x = `/images/pet-block/${page}/pet-${screen}-img@2x.png`;
 
   const backgroundStyle = {
     backgroundImage: `
     image-set(
-      url(${bg1x}) 1x,
-      url(${bg2x}) 2x
+      url("/images/pet-block/${page}/bg-${screen}.png") 1x,
+      url("/images/pet-block/${page}/bg-${screen}@2x.png") 2x
     )
   `,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center bottom",
     backgroundSize: "auto",
-  }
+  };
 
   const containerClass = clsx(
-    "bg-primary desktop:h-full desktop:basis-section relative flex w-full items-end rounded-4xl",
-    page === "add" ? "tablet:h-[248px] h-[213px]" : "tablet:h-[302px] h-70",
-  )
+    "bg-primary desktop:h-full desktop:basis-box relative flex w-full items-end rounded-4xl",
+    {
+      "tablet:h-[248px] h-[213px]": page === "add",
+      "tablet:h-[302px] h-70": page === "register" || page === "login",
+    }
+  );
 
-  const showBanner = page === "register" || page === "login"
+  const showBanner = page !== "add";
 
   return (
     <div className={containerClass} style={backgroundStyle}>
@@ -48,7 +47,7 @@ const PetBlock: React.FC<PetBlockProps> = ({ page }) => {
       />
       {showBanner && <PetBanner page={page} />}
     </div>
-  )
-}
+  );
+};
 
-export default PetBlock
+export default PetBlock;

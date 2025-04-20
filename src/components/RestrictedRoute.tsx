@@ -11,7 +11,7 @@ interface RestrictedRouteProps {
 const RestrictedRoute = ({ children, redirectTo = "/" }: RestrictedRouteProps) => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
-  return !isLoggedIn ? <>{children}</> : <Navigate to={redirectTo} />
+  return !isLoggedIn ? children : <Navigate to={redirectTo} />
 }
 
 export default RestrictedRoute

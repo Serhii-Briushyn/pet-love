@@ -3,12 +3,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-display: "Manrope", "sans-serif";
+  --font-manrope: "Manrope", "sans-serif";
   --breakpoint-*: initial;
-  --breakpoint-mobil: 375px;
+  --breakpoint-mobile: 375px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1280px;
-  --container-section: 592px;
+  --container-box: 592px;
+  --container-m-hed: 335px;
   --radius-main: 30px;
 
   --color-black: #262626;
@@ -41,11 +42,6 @@
   --color-pink-light: #ffe0ef;
 }
 
-.scrollbar-hidden::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hidden {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.btn-transition {
+  @apply transition-all duration-300 ease-in;
 }

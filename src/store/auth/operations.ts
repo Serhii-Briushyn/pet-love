@@ -7,11 +7,11 @@ export const goItApi = axios.create({
   baseURL: "https://petlove.b.goit.study/api/",
 });
 
-const setAuthHeader = (token: string): void => {
+export const setAuthHeader = (token: string): void => {
   goItApi.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-const clearAuthHeader = () => {
+export const clearAuthHeader = () => {
   goItApi.defaults.headers.common.Authorization = "";
 };
 
