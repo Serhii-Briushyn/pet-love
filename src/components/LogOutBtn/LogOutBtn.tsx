@@ -3,7 +3,9 @@ import clsx from "clsx";
 import ModalApproveAction from "components/ModalApproveAction/ModalApproveAction";
 // import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { logout } from "store/auth/operations";
 import { AppDispatch } from "store/store";
 
@@ -15,6 +17,7 @@ type LogOutProps = {
 const LogOutBtn: React.FC<LogOutProps> = ({ isInverted = false, variant }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const isMenu = variant === "menu";
   const isHeader = variant === "header";
@@ -31,8 +34,13 @@ const LogOutBtn: React.FC<LogOutProps> = ({ isInverted = false, variant }) => {
     }
   );
 
-  const handleConfirm = () => {
-    dispatch(logout());
+  const handleConfirm = async () => {
+    try {
+      await dispatch(logout()).unwrap();
+      navigate("/home");
+    } catch (error) {
+      toast.error(error as string);
+    }
   };
 
   return (

@@ -22,10 +22,10 @@ const pageConfig: Record<PageType, PageConfigItem> = {
   news: {
     title: "News",
   },
-  notices: {
+  friends: {
     title: "Our friends",
   },
-  friends: {
+  notices: {
     title: "Find your favorite pet",
   },
 };

@@ -16,6 +16,7 @@ import { AuthState } from "types/auth/state";
 import { PersistPartial } from "redux-persist/es/persistReducer";
 import { uiReducer } from "./ui/slice";
 import { loadingMiddleware } from "store/middleware/loadingMiddleware";
+import { friendsReducer } from "./friends/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -29,8 +30,9 @@ const persistedAuthReducer: Reducer<AuthState & PersistPartial> =
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    news: newsReducer,
     ui: uiReducer,
+    news: newsReducer,
+    friends: friendsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

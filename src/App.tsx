@@ -12,6 +12,7 @@ import HomePage from "pages/HomePage/HomePage";
 import { useAuthInit } from "hooks/useAuthInit";
 import Loader from "components/Loader/Loader";
 import NewsPage from "pages/NewsPage/NewsPage";
+import FriendsPage from "pages/FriendsPage/FriendsPage";
 
 function App() {
   useAuthInit();
@@ -25,7 +26,7 @@ function App() {
             <Route path="home" element={<HomePage />} />
             <Route path="news" element={<NewsPage />} />
             {/* <Route path="notices" element={<NoticesPage />} /> */}
-            {/* <Route path="friends" element={<FriendsPage />} /> */}
+            <Route path="friends" element={<FriendsPage />} />
             {/* Restricted routes for unauthorized only */}
             {/* <Route element={<RestrictedRoute redirectTo="/profile" />}>
               <Route path="register" element={<RegisterPage />} />

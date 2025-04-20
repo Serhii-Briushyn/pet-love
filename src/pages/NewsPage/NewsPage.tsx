@@ -42,7 +42,7 @@ const NewsPage = () => {
 
   return (
     <div className="container m-auto flex flex-col px-5 pt-28.5 pb-20 tablet:px-8 tablet:pt-42 desktop:px-16 desktop:pt-44.5">
-      <div className="flex flex-col gap-5 mb-6 tablet:flex-row tablet:justify-between desktop:items-center tablet:mb-11 desktop:mb-18.5">
+      <div className="flex flex-col gap-5 mb-6 tablet:flex-row tablet:justify-between desktop:items-center tablet:mb-11 desktop:mb-15">
         <Title page="news" />
         <SearchField onSearch={handleSearch} />
       </div>
