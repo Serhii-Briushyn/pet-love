@@ -1,43 +1,24 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
+import { yupResolver } from "@hookform/resolvers/yup"
 
-import Title from "components/Title/Title";
-import FormInput from "components/FormInput/FormInput";
-import PasswordInput from "components/PasswordInput/PasswordInput";
-import { SignUpRequest } from "types/auth/requests";
-import { AppDispatch } from "store/store";
-import { register } from "store/auth/operations";
-import FormButton from "components/FormButton/FormButton";
-import FormLink from "components/FormLink/FormLink";
+import { AppDispatch } from "@store/store"
+import { register } from "@store/users/operations"
+import { SignUpRequest } from "@store/users/types"
+import { registerValidationSchema } from "@validation/schemas"
 
-const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
-
-  email: Yup.string()
-    .matches(
-      /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-      "Please enter a valid email address"
-    )
-    .required("Email is required"),
-
-  password: Yup.string()
-    .min(7, "Password must be at least 7 characters")
-    .max(64, "Password must be at most 64 characters")
-    .required("Password is required"),
-
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Please confirm your password"),
-});
+import Title from "@components/Title/Title"
+import FormInput from "@components/FormInput/FormInput"
+import PasswordInput from "@components/PasswordInput/PasswordInput"
+import FormButton from "@components/FormButton/FormButton"
+import FormLink from "@components/FormLink/FormLink"
 
 const RegisterForm = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const dispatch = useDispatch<AppDispatch>()
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const {
     register: formRegister,
@@ -46,45 +27,41 @@ const RegisterForm = () => {
     reset,
     watch,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(registerValidationSchema),
     mode: "onTouched",
-  });
+  })
 
-  const onSubmit = async (
-    values: SignUpRequest & { confirmPassword?: string }
-  ) => {
+  const onSubmit = async (values: SignUpRequest & { confirmPassword?: string }) => {
     try {
-      const requestData = { ...values };
-      delete requestData.confirmPassword;
-      await dispatch(register(requestData)).unwrap();
-      toast.success("Registration successful");
-      reset();
+      const requestData = { ...values }
+      delete requestData.confirmPassword
+      await dispatch(register(requestData)).unwrap()
+      toast.success("Registration successful")
+      reset()
     } catch (error) {
-      toast.error(error as string);
+      toast.error(error as string)
     }
-  };
+  }
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
+    setShowPassword((prev) => !prev)
+  }
 
   const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword((prev) => !prev);
-  };
+    setShowConfirmPassword((prev) => !prev)
+  }
 
   return (
-    <div className="bg-white flex items-center justify-center rounded-main max-tablet:p-5 max-desktop:p-7 desktop:basis-box">
-      <div className="w-full tablet:w-[424px]">
-        <div className="flex flex-col gap-3 mb-5 tablet:gap-4 tablet:mb-8">
-          <Title page="register" />
-        </div>
+    <div className="flex items-center justify-center rounded-4xl bg-white p-5 lg:p-7 xl:flex-1/2 xl:p-0">
+      <div className="w-full lg:w-106">
+        <Title
+          title="Registration"
+          subtitle="Thank you for your interest in our platform."
+          className="mb-5 flex flex-col gap-3 lg:mb-8 lg:gap-4"
+        />
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          autoComplete="off"
-          className="w-full mb-3 tablet:mb-4"
-        >
-          <div className="flex flex-col gap-2.5 mb-6 tablet:gap-4 tablet:mb-8">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off" className="mb-3 w-full lg:mb-4">
+          <div className="mb-6 flex flex-col gap-2.5 lg:mb-8 lg:gap-4">
             <FormInput
               type="name"
               placeholder="Name"
@@ -135,14 +112,10 @@ const RegisterForm = () => {
           </FormButton>
         </form>
 
-        <FormLink
-          to="/login"
-          text="Already have an account?"
-          linkText="Login"
-        />
+        <FormLink to="/login" text="Already have an account?" linkText="Login" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default RegisterForm

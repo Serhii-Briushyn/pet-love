@@ -1,13 +1,13 @@
-import PetBlock from "components/PetBlock/PetBlock";
-import RegisterForm from "components/RegisterForm/RegisterForm";
+import RegisterForm from "@components/RegisterForm/RegisterForm"
+import PetBlock from "@components/PetBlock/PetBlock"
 
 const RegisterPage = () => {
   return (
-    <section className="container m-auto flex flex-col gap-2.5 p-5 pt-20 tablet:p-8 tablet:pt-28.5 tablet:gap-4 desktop:flex-row desktop:gap-8 desktop:h-[800px]">
+    <section className="container m-auto flex flex-col gap-2.5 p-5 pt-22 lg:gap-4 lg:p-8 lg:pt-28.5 xl:h-200 xl:flex-row xl:gap-8">
       <PetBlock page="register" />
       <RegisterForm />
     </section>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage

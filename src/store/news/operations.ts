@@ -1,13 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { goItApi } from "store/auth/operations";
-import { NewsResponse } from "types/news/types";
+import { NewsResponse } from "./types";
+import { goItApi } from "@store/users/operations";
+
+// -------------------- fetchNews --------------------
 
 export const fetchNews = createAsyncThunk<
   NewsResponse,
-  { keyword?: string; page?: number; limit?: number },
+  { page?: number; limit?: number; keyword?: string },
   { rejectValue: string }
->("news/fetchNews", async ({ keyword = "", page = 1, limit = 6 }, thunkAPI) => {
+>("news/fetchNews", async ({ limit = 6, page = 1, keyword = "" }, thunkAPI) => {
   try {
     const params = new URLSearchParams();
     if (keyword) params.append("keyword", keyword);

@@ -1,0 +1,80 @@
+/* ========== AUTH ========== */
+
+.bg-auth {
+  background-image: image-set(
+    url("/images/pet-block/bg/bg-auth-mobile.png") 1x,
+    url("/images/pet-block/bg/bg-auth-mobile@2x.png") 2x
+  );
+}
+
+@media (min-width: 768px) {
+  .bg-auth {
+    background-image: image-set(
+      url("/images/pet-block/bg/bg-auth-tablet.png") 1x,
+      url("/images/pet-block/bg/bg-auth-tablet@2x.png") 2x
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  .bg-auth {
+    background-image: image-set(
+      url("/images/pet-block/bg/bg-auth-desktop.png") 1x,
+      url("/images/pet-block/bg/bg-auth-desktop@2x.png") 2x
+    );
+  }
+}
+
+/* ========== ADD ========== */
+
+.bg-add {
+  background-image: image-set(
+    url("/images/pet-block/bg/bg-add-mobile.png") 1x,
+    url("/images/pet-block/bg/bg-add-mobile@2x.png") 2x
+  );
+}
+
+@media (min-width: 768px) {
+  .bg-add {
+    background-image: image-set(
+      url("/images/pet-block/bg/bg-add-tablet.png") 1x,
+      url("/images/pet-block/bg/bg-add-tablet@2x.png") 2x
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  .bg-add {
+    background-image: image-set(
+      url("/images/pet-block/bg/bg-add-desktop.png") 1x,
+      url("/images/pet-block/bg/bg-add-desktop@2x.png") 2x
+    );
+  }
+}
+
+/* ========== LOADER ========== */
+
+.bg-loader {
+  background-image: image-set(
+    url("/images/loader/bg-mobile.png") 1x,
+    url("/images/loader/bg-mobile@2x.png") 2x
+  );
+}
+
+@media (min-width: 768px) {
+  .bg-loader {
+    background-image: image-set(
+      url("/images/loader/bg-tablet.png") 1x,
+      url("/images/loader/bg-tablet@2x.png") 2x
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  .bg-loader {
+    background-image: image-set(
+      url("/images/loader/bg-desktop.png") 1x,
+      url("/images/loader/bg-desktop@2x.png") 2x
+    );
+  }
+}

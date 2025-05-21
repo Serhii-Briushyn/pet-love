@@ -1,75 +1,15 @@
-import { useEffect, useState } from "react";
-import { useScreenType } from "utils/useScreenType";
-
 const Loader = () => {
-  const [progress, setProgress] = useState(0);
-  const screen = useScreenType();
-
-  const backgroundStyle = {
-    backgroundImage: `
-    image-set(
-      url("/images/main-page/bg-${screen}.png") 1x,
-      url("/images/main-page/bg-${screen}@2x.png") 2x
-    )
-  `,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => (prev < 100 ? prev + 1 : 100));
-    }, 20);
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!screen) return null;
-
-  const radius = screen === "mobile" ? 136.5 : 199;
-  const stroke = 2;
-  const normalizedRadius = radius - stroke * 2;
-  const circumference = normalizedRadius * 2 * Math.PI;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
-
   return (
-    <div
-      className="fixed top-0 left-0 w-screen z-100 h-screen flex items-center justify-center"
-      style={backgroundStyle}
-    >
-      <svg
-        height={radius * 2}
-        width={radius * 2}
-        className="absolute z-10 rotate-[-90deg]"
-      >
-        <circle
-          stroke="white"
-          strokeOpacity="0.3"
-          fill="transparent"
-          strokeWidth={stroke}
-          r={normalizedRadius}
-          cx={radius}
-          cy={radius}
-        />
-
-        <circle
-          stroke="white"
-          fill="transparent"
-          strokeWidth={stroke}
-          strokeDasharray={`${circumference} ${circumference}`}
-          style={{ strokeDashoffset }}
-          strokeLinecap="round"
-          r={normalizedRadius}
-          cx={radius}
-          cy={radius}
-        />
-      </svg>
-
-      <span className="text-white text-[50px] font-bold leading-none tracking-[-0.04em] tablet:text-[80px]">
-        {progress}%
-      </span>
+    <div className="bg-loader fixed top-0 left-0 z-100 flex h-screen w-full items-center justify-center bg-cover bg-center bg-no-repeat">
+      <div className="flex items-end text-5xl leading-none font-bold text-white lg:text-8xl">
+        pet
+        <svg className="fill-primary h-11 w-11 animate-pulse lg:h-20 lg:w-20">
+          <use href="/sprite.svg#icon-heart" />
+        </svg>
+        love
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader

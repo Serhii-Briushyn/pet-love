@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { goItApi } from "store/auth/operations";
-import { FriendsResponse } from "types/friends/types";
+import { FriendsResponse } from "./types";
+import { goItApi } from "@store/users/operations";
+
+// -------------------- fetchFriends --------------------
 
 export const fetchFriends = createAsyncThunk<
   FriendsResponse[],

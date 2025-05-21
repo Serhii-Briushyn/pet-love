@@ -1,3 +1,4 @@
+@import "./styles/globals.css";
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -5,12 +6,9 @@
 @theme {
   --font-manrope: "Manrope", "sans-serif";
   --breakpoint-*: initial;
-  --breakpoint-mobile: 375px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1280px;
-  --container-box: 592px;
-  --container-m-hed: 335px;
-  --radius-main: 30px;
+  --breakpoint-sm: 375px;
+  --breakpoint-lg: 768px;
+  --breakpoint-xl: 1280px;
 
   --color-black: #262626;
   --color-red: #ef2447;
@@ -41,7 +39,18 @@
   --color-pink: #f63d8c;
   --color-pink-light: #ffe0ef;
 }
+.custom-scrollbar::-webkit-scrollbar {
+  width: 22px;
+}
 
-.btn-transition {
-  @apply transition-all duration-300 ease-in;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(38, 38, 38, 0.08);
+  border-radius: 13px;
+  border: 7px solid transparent;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }

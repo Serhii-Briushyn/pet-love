@@ -1,38 +1,32 @@
-import clsx from "clsx";
-import { Link } from "react-router";
+import { Link } from "react-router"
+import clsx from "clsx"
+
 type LogoProps = {
-  page?: "home" | "main" | "default";
-};
+  isHome?: boolean
+}
 
-const Logo: React.FC<LogoProps> = ({ page = "default" }) => {
-  const isHomePage = page === "home";
-  const isMainPage = page === "main";
-  const isDefault = page === "default";
+const Logo: React.FC<LogoProps> = ({ isHome = false }) => {
+  const textClass = clsx("flex items-end text-xl leading-none font-bold lg:text-3xl", {
+    "text-white": isHome,
+    "text-black": !isHome,
+  })
 
-  const textClasses = clsx("flex items-end leading-none font-bold", {
-    "text-[50px] text-white tablet:text-[100px]": isMainPage,
-    "text-xl text-white tablet:text-[28px]": isHomePage,
-    "text-xl text-black tablet:text-[28px]": isDefault,
-  });
-
-  const iconClasses = clsx({
-    "fill-primary h-11 w-11 animate-pulse tablet:w-[82px] tablet:h-[82px]":
-      isMainPage,
-    "fill-white h-[17px] w-[17px] tablet:h-[23px] tablet:w-[23px]": isHomePage,
-    "fill-primary h-[17px] w-[17px] tablet:h-[23px] tablet:w-[23px]": isDefault,
-  });
+  const iconClass = clsx("h-4 w-4 lg:h-6 lg:w-6", {
+    "fill-white": isHome,
+    "fill-primary": !isHome,
+  })
 
   return (
-    <Link to="/home">
-      <div className={textClasses}>
+    <Link to="/">
+      <div className={textClass}>
         pet
-        <svg className={iconClasses}>
+        <svg className={iconClass}>
           <use href="/sprite.svg#icon-heart" />
         </svg>
         love
       </div>
     </Link>
-  );
-};
+  )
+}
 
-export default Logo;
+export default Logo

@@ -1,7 +1,7 @@
+import { ReactNode } from "react"
 import { Navigate } from "react-router"
 import { useSelector } from "react-redux"
-import { selectIsLoggedIn } from "store/auth/selectors"
-import { ReactNode } from "react"
+import { selectIsLoggedIn } from "@store/users/selectors"
 
 interface RestrictedRouteProps {
   children: ReactNode

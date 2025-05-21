@@ -1,8 +1,8 @@
 interface InfoRowProps {
-  label: string;
-  value?: string | null;
-  href?: string;
-  isExternal?: boolean;
+  label: string
+  value?: string | null
+  href?: string
+  isExternal?: boolean
 }
 
 const InfoRow = ({ label, value, href, isExternal = false }: InfoRowProps) => {
@@ -14,7 +14,7 @@ const InfoRow = ({ label, value, href, isExternal = false }: InfoRowProps) => {
           href={href}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
-          className="text-black line-clamp-1 hover:underline"
+          className="line-clamp-1 text-black hover:underline"
           title={value}
         >
           {value}
@@ -23,7 +23,7 @@ const InfoRow = ({ label, value, href, isExternal = false }: InfoRowProps) => {
         <span className="text-black/30 italic">Not available</span>
       )}
     </span>
-  );
-};
+  )
+}
 
-export default InfoRow;
+export default InfoRow

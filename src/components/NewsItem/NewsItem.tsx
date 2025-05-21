@@ -1,52 +1,43 @@
-import { NewsItem as NewsItemType } from "types/news/types";
+import { News } from "@store/news/types"
+import { formatDate } from "@utils/formatDate"
 
 type Props = {
-  item: NewsItemType;
-};
+  item: News
+}
 
 const NewsItem: React.FC<Props> = ({ item }) => {
-  const { title, text, date, url, imgUrl } = item;
+  const { title, text, date, url, imgUrl } = item
 
   return (
-    <li className="flex flex-col gap-5 tablet:gap-7">
+    <li className="flex flex-col gap-5 lg:gap-7">
       {imgUrl && (
         <img
           src={imgUrl}
           alt={title}
-          className="w-full h-47.5 object-cover rounded-2xl tablet:h-56.5"
+          className="h-47.5 w-full rounded-2xl object-cover lg:h-56.5"
           loading="lazy"
         />
       )}
 
       <div>
-        <h3 className="text-base font-bold mb-3 line-clamp-2 tablet:min-h-14 tablet:text-xl tablet:mb-3.5">
+        <h3 className="mb-3 line-clamp-2 text-base font-bold lg:mb-3.5 lg:min-h-14 lg:text-xl">
           {title}
         </h3>
-
-        <p className="mb-5 line-clamp-4 tablet:min-h-24 tablet:mb-7">{text}</p>
-
-        <div className="flex justify-between items-center">
-          <span className="text-black/50">
-            {(() => {
-              const d = new Date(date);
-              const day = String(d.getDate()).padStart(2, "0");
-              const month = String(d.getMonth() + 1).padStart(2, "0");
-              const year = d.getFullYear();
-              return `${day}/${month}/${year}`;
-            })()}
-          </span>
+        <p className="mb-5 line-clamp-4 lg:mb-7 lg:min-h-24">{text}</p>
+        <div className="flex items-center justify-between">
+          <span className="text-black/50">{formatDate(date, "/")}</span>
           <a
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary underline cursor-pointer transition-all duration-200 ease-in hover:text-primary-hover"
+            className="text-primary hover:text-primary-hover cursor-pointer underline transition-all duration-200 ease-in"
           >
             Read more
           </a>
         </div>
       </div>
     </li>
-  );
-};
+  )
+}
 
-export default NewsItem;
+export default NewsItem

@@ -1,63 +1,77 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"
+import clsx from "clsx"
 
 type SearchFieldProps = {
-  onSearch: (value: string) => void;
-};
+  variant: "notices" | "news"
+  value: string
+  onSearch: (value: string) => void
+}
 
-const SearchField: React.FC<SearchFieldProps> = ({ onSearch }) => {
-  const [value, setValue] = useState("");
+const SearchField: React.FC<SearchFieldProps> = ({ variant, value, onSearch }) => {
+  const [inputValue, setInputValue] = useState(value)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSearch(value.trim());
-  };
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
 
   const handleClear = () => {
-    setValue("");
-    onSearch("");
-  };
+    if (value) {
+      onSearch("")
+    } else {
+      setInputValue("")
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    onSearch(inputValue.trim())
+  }
+
+  const isNews = variant === "news"
+  const isNotices = variant === "notices"
+
+  const inputClass = clsx(
+    "hover:border-primary focus:border-primary h-10.5 w-full rounded-4xl border pr-15 pl-3 transition-all duration-200 ease-in outline-none lg:h-12 lg:pl-3.5",
+    {
+      "border-black/15 lg:w-60": isNews,
+      "shrink-0 border-transparent bg-white placeholder:text-black lg:w-66": isNotices,
+    },
+  )
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex items-center w-full tablet:w-57.5"
-    >
-      <div className="relative w-full">
-        <input
-          type="text"
-          placeholder="Search"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="w-full border border-black/15 rounded-main p-3 pr-15 outline-none transition-all duration-200 ease-in hover:border-primary focus:border-primary"
-        />
-
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
-          {value && (
-            <button
-              type="button"
-              onClick={handleClear}
-              className=" cursor-pointer transition-all duration-200 ease-in hover:scale-120"
-              aria-label="Clear search"
-            >
-              <svg className="w-4.5 h-4.5 stroke-black fill-amber-200">
-                <use href="/sprite.svg#icon-close" />
-              </svg>
-            </button>
-          )}
-
+    <form onSubmit={handleSubmit} className="relative flex items-center">
+      <input
+        type="text"
+        placeholder="Search"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        className={inputClass}
+      />
+      <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1">
+        {inputValue && (
           <button
-            type="submit"
-            className=" cursor-pointer transition-all duration-200 ease-in hover:scale-120"
-            aria-label="Search"
+            type="button"
+            onClick={handleClear}
+            className="cursor-pointer transition-all duration-200 ease-in hover:scale-120"
+            aria-label="Clear search"
           >
-            <svg className="w-4.5 h-4.5 stroke-black fill-none">
-              <use href="/sprite.svg#icon-search" />
+            <svg className="h-4.5 w-4.5 fill-amber-200 stroke-black">
+              <use href="/sprite.svg#icon-close" />
             </svg>
           </button>
-        </div>
+        )}
+        <button
+          type="submit"
+          className="cursor-pointer transition-all duration-200 ease-in hover:scale-120"
+          aria-label="Search"
+        >
+          <svg className="h-4.5 w-4.5 fill-none stroke-black">
+            <use href="/sprite.svg#icon-search" />
+          </svg>
+        </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default SearchField;
+export default SearchField

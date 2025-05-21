@@ -1,53 +1,59 @@
-import clsx from "clsx";
-import PetBanner from "components/PetBanner/PetBanner";
-import { useScreenType } from "utils/useScreenType";
+import clsx from "clsx"
+import PetBanner from "@components/PetBanner/PetBanner"
 
 type PetBlockProps = {
-  page: "register" | "login" | "add";
-};
+  page: "register" | "login" | "add"
+}
+
+const getPetImgSet = (page: string) => ({
+  mobile: {
+    "1x": `/images/pet-block/${page}/pet-mobile-img.png`,
+    "2x": `/images/pet-block/${page}/pet-mobile-img@2x.png`,
+  },
+  tablet: {
+    "1x": `/images/pet-block/${page}/pet-tablet-img.png`,
+    "2x": `/images/pet-block/${page}/pet-tablet-img@2x.png`,
+  },
+  desktop: {
+    "1x": `/images/pet-block/${page}/pet-desktop-img.png`,
+    "2x": `/images/pet-block/${page}/pet-desktop-img@2x.png`,
+  },
+})
 
 const PetBlock: React.FC<PetBlockProps> = ({ page }) => {
-  const screen = useScreenType();
+  const isAuth = page === "login" || page === "register"
+  const isAdd = page === "add"
 
-  if (!screen) return null;
-
-  const img1x = `/images/pet-block/${page}/pet-${screen}-img.png`;
-  const img2x = `/images/pet-block/${page}/pet-${screen}-img@2x.png`;
-
-  const backgroundStyle = {
-    backgroundImage: `
-    image-set(
-      url("/images/pet-block/${page}/bg-${screen}.png") 1x,
-      url("/images/pet-block/${page}/bg-${screen}@2x.png") 2x
-    )
-  `,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center bottom",
-    backgroundSize: "auto",
-  };
+  const images = getPetImgSet(page)
 
   const containerClass = clsx(
-    "bg-primary desktop:h-full desktop:basis-box relative flex w-full items-end rounded-4xl",
+    "bg-primary relative flex w-full items-end rounded-4xl bg-auto bg-bottom bg-no-repeat xl:h-full xl:flex-1/2",
     {
-      "tablet:h-[248px] h-[213px]": page === "add",
-      "tablet:h-[302px] h-70": page === "register" || page === "login",
-    }
-  );
-
-  const showBanner = page !== "add";
+      "bg-add h-53 lg:h-62": isAdd,
+      "bg-auth h-70 lg:h-76": isAuth,
+    },
+  )
 
   return (
-    <div className={containerClass} style={backgroundStyle}>
-      <img
-        className="tablet:ml-auto tablet:mr-22.5 desktop:mr-5"
-        src={img1x}
-        srcSet={`${img1x} 1x, ${img2x} 2x`}
-        alt="Pet"
-        loading="lazy"
-      />
-      {showBanner && <PetBanner page={page} />}
+    <div className={containerClass}>
+      <picture className="lg:mr-22.5 lg:ml-auto xl:mr-5">
+        <source
+          media="(min-width: 1280px)"
+          srcSet={`${images.desktop["1x"]} 1x, ${images.desktop["2x"]} 2x`}
+        />
+        <source
+          media="(min-width: 768px)"
+          srcSet={`${images.tablet["1x"]} 1x, ${images.tablet["2x"]} 2x`}
+        />
+        <source
+          media="(max-width: 767px)"
+          srcSet={`${images.mobile["1x"]} 1x, ${images.mobile["2x"]} 2x`}
+        />
+        <img src={images.mobile["1x"]} alt="Pet" loading="lazy" />
+      </picture>
+      {isAuth && <PetBanner page={page} />}
     </div>
-  );
-};
+  )
+}
 
-export default PetBlock;
+export default PetBlock

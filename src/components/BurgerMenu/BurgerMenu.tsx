@@ -1,52 +1,36 @@
-import clsx from "clsx";
-import AuthNav from "components/AuthNav/AuthNav";
-import Modal from "components/Modal/Modal";
-import Nav from "components/Nav/Nav";
-import UserNav from "components/UserNav/UserNav";
-import { AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux"
+import clsx from "clsx"
+
+import AuthNav from "@components/AuthNav/AuthNav"
+import Nav from "@components/Nav/Nav"
+import UserNav from "@components/UserNav/UserNav"
+import { selectIsLoggedIn } from "@store/users/selectors"
 
 type BurgerMenuProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  isInverted: boolean;
-  isLoggedIn: boolean;
-};
+  isHome: boolean
+}
 
-const BurgerMenu: React.FC<BurgerMenuProps> = ({
-  isOpen,
-  onClose,
-  isInverted,
-  isLoggedIn,
-}) => {
-  const menuStyles = clsx(
-    "flex flex-col items-center justify-between h-full w-[218px] px-5 pb-10 pt-[236px] tablet:w-[374px] tablet:pt-[369px]",
+const BurgerMenu: React.FC<BurgerMenuProps> = ({ isHome }) => {
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+
+  const containerClass = clsx(
+    "relative flex h-full w-55 items-end justify-center px-5 py-10 lg:w-94",
     {
-      "bg-white": !isInverted,
-      "bg-primary": isInverted,
-    }
-  );
+      "bg-white": isHome,
+      "bg-primary": !isHome,
+    },
+  )
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          variant="drawer"
-          isInverted={isInverted}
-        >
-          <div className={menuStyles}>
-            <Nav isInverted={isInverted} onClose={onClose} />
-            {isLoggedIn ? (
-              <UserNav variant="menu" />
-            ) : (
-              <AuthNav isInverted={isInverted} onClose={onClose} />
-            )}
-          </div>
-        </Modal>
+    <div className={containerClass}>
+      <Nav variant="menu" isHome={isHome} />
+      {isLoggedIn ? (
+        <UserNav variant="menu" isHome={isHome} />
+      ) : (
+        <AuthNav variant="menu" isHome={isHome} />
       )}
-    </AnimatePresence>
-  );
-};
+    </div>
+  )
+}
 
-export default BurgerMenu;
+export default BurgerMenu

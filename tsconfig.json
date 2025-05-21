@@ -16,13 +16,16 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "components/*": ["components/*"],
-      "helpers/*": ["helpers/*"],
-      "hooks/*": ["hooks/*"],
-      "pages/*": ["pages/*"],
-      "store/*": ["store/*"],
-      "types/*": ["types/*"],
-      "utils/*": ["utils/*"]
+      "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
+      "@helpers/*": ["helpers/*"],
+      "@hooks/*": ["hooks/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+      "@validation/*": ["validation/*"]
     }
   },
   "include": ["src"],

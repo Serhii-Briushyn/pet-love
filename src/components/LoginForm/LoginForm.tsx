@@ -1,35 +1,22 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { yupResolver } from "@hookform/resolvers/yup";
-import toast from "react-hot-toast";
-import * as Yup from "yup";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
+import { yupResolver } from "@hookform/resolvers/yup"
 
-import { AppDispatch } from "store/store";
-import { login } from "store/auth/operations";
-import Title from "components/Title/Title";
-import FormInput from "components/FormInput/FormInput";
-import PasswordInput from "components/PasswordInput/PasswordInput";
-import FormButton from "components/FormButton/FormButton";
-import FormLink from "components/FormLink/FormLink";
+import { AppDispatch } from "@store/store"
+import { login } from "@store/users/operations"
+import { loginValidationSchema } from "@validation/schemas"
 
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .matches(
-      /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-      "Please enter a valid email address"
-    )
-    .required("Email is required"),
-
-  password: Yup.string()
-    .min(7, "Password must be at least 7 characters")
-    .max(64, "Password must be at most 64 characters")
-    .required("Password is required"),
-});
+import Title from "@components/Title/Title"
+import FormInput from "@components/FormInput/FormInput"
+import PasswordInput from "@components/PasswordInput/PasswordInput"
+import FormButton from "@components/FormButton/FormButton"
+import FormLink from "@components/FormLink/FormLink"
 
 const LoginForm = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch<AppDispatch>()
+  const [showPassword, setShowPassword] = useState(false)
 
   const {
     register: formRegister,
@@ -38,37 +25,35 @@ const LoginForm = () => {
     reset,
     watch,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(loginValidationSchema),
     mode: "onTouched",
-  });
+  })
 
   const onSubmit = async (values: { email: string; password: string }) => {
     try {
-      await dispatch(login(values)).unwrap();
-      toast.success("Login successful");
-      reset();
+      await dispatch(login(values)).unwrap()
+      toast.success("Login successful")
+      reset()
     } catch (error) {
-      toast.error(error as string);
+      toast.error(error as string)
     }
-  };
+  }
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
+    setShowPassword((prev) => !prev)
+  }
 
   return (
-    <div className="bg-white flex items-center justify-center rounded-main max-tablet:px-5 max-tablet:py-15 max-desktop:px-7 max-desktop:py-18 desktop:basis-box">
-      <div className="w-full tablet:w-[424px]">
-        <div className="flex flex-col gap-3 mb-6 tablet:gap-4 tablet:mb-8">
-          <Title page="login" />
-        </div>
+    <div className="flex items-center justify-center rounded-4xl bg-white px-5 py-15 lg:p-17 xl:flex-1/2 xl:p-0">
+      <div className="w-full lg:w-106">
+        <Title
+          title="Log in"
+          subtitle="Welcome! Please enter your credentials to login to the platform:"
+          className="mb-6 flex flex-col gap-3 lg:mb-8 lg:gap-4"
+        />
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          autoComplete="off"
-          className="w-full mb-3 tablet:mb-4"
-        >
-          <div className="flex flex-col gap-2.5 mb-10 tablet:gap-4 tablet:mb-16">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off" className="mb-3 w-full lg:mb-4">
+          <div className="mb-10 flex flex-col gap-2.5 lg:mb-16 lg:gap-4">
             <FormInput
               type="email"
               placeholder="Email"
@@ -96,14 +81,10 @@ const LoginForm = () => {
           </FormButton>
         </form>
 
-        <FormLink
-          to="/register"
-          text="Don't have an account?"
-          linkText="Register"
-        />
+        <FormLink to="/register" text="Don't have an account?" linkText="Register" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

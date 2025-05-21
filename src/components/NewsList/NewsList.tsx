@@ -1,22 +1,19 @@
-import NewsItem from "components/NewsItem/NewsItem";
-import { NewsItem as NewsItemType } from "types/news/types";
+import { useSelector } from "react-redux"
+import { selectNews } from "@store/news/selectors"
+import NewsItem from "@components/NewsItem/NewsItem"
 
-type NewsListProps = {
-  items: NewsItemType[];
-};
+const NewsList = () => {
+  const news = useSelector(selectNews)
 
-const NewsList: React.FC<NewsListProps> = ({ items }) => {
-  if (!items.length) {
-    return <p className="text-center">No news found.</p>;
-  }
+  if (!news.length) return <p>No news found.</p>
 
   return (
-    <ul className="grid gap-5 mb-11 tablet:grid-cols-2 tablet:mb-15 desktop:grid-cols-3 desktop:gap-x-8 desktop:gap-y-10">
-      {items.map((item) => (
+    <ul className="mb-11 grid gap-5 lg:mb-15 lg:grid-cols-2 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-10">
+      {news.map((item) => (
         <NewsItem key={item._id} item={item} />
       ))}
     </ul>
-  );
-};
+  )
+}
 
-export default NewsList;
+export default NewsList

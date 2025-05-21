@@ -1,60 +1,42 @@
-import clsx from "clsx";
-// import Modal from "components/Modal/Modal";
-import ModalApproveAction from "components/ModalApproveAction/ModalApproveAction";
-// import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "store/auth/operations";
-import { AppDispatch } from "store/store";
+import { useDispatch } from "react-redux"
+import clsx from "clsx"
+
+import { AppDispatch } from "@store/store"
+import { openModal } from "@store/ui/slice"
 
 type LogOutProps = {
-  isInverted?: boolean;
-  variant?: "header" | "menu";
-};
+  variant?: "header" | "menu"
+  isHome?: boolean
+}
 
-const LogOutBtn: React.FC<LogOutProps> = ({ isInverted = false, variant }) => {
-  const [open, setOpen] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
+const LogOutBtn: React.FC<LogOutProps> = ({ variant, isHome }) => {
+  const dispatch = useDispatch<AppDispatch>()
 
-  const isMenu = variant === "menu";
-  const isHeader = variant === "header";
+  const isMenu = variant === "menu"
+  const isHeader = variant === "header"
 
-  const logoutStyles = clsx(
-    " flex justify-center items-center h-10.5 rounded-main font-bold uppercase cursor-pointer tablet:h-12.5 transition-all duration-200 ease-in ",
+  const isMenuLight = isMenu && isHome
+  const isMenuColor = isMenu && !isHome
+  const isHeaderLight = isHeader && !isHome
+  const isHeaderColor = isHeader && isHome
+
+  const buttonClass = clsx(
+    "h-10.5 cursor-pointer items-center justify-center rounded-4xl font-bold transition-all duration-200 ease-in lg:h-12",
     {
-      "bg-secondary text-primary max-w-44.5 w-full hover:bg-secondary-hover":
-        isMenu,
-      "bg-primary text-white w-34 hover:bg-primary-hover":
-        isHeader && !isInverted,
-      "bg-secondary text-primary w-34 hover:bg-secondary-hover":
-        isHeader && isInverted,
-    }
-  );
-
-  const handleConfirm = async () => {
-    try {
-      await dispatch(logout()).unwrap();
-      navigate("/home");
-    } catch (error) {
-      toast.error(error as string);
-    }
-  };
+      "bg-secondary text-primary hover:bg-secondary-hover flex w-full lg:w-37": isMenuColor,
+      "bg-primary hover:bg-primary-hover flex w-full text-white lg:w-42": isMenuLight,
+      "bg-secondary text-primary hover:bg-secondary-hover hidden w-34 lg:flex": isHeaderColor,
+      "bg-primary hover:bg-primary-hover hidden w-34 text-white lg:flex": isHeaderLight,
+    },
+  )
 
   return (
     <>
-      <button className={logoutStyles} onClick={() => setOpen(true)}>
+      <button className={buttonClass} onClick={() => dispatch(openModal({ name: "approved" }))}>
         Log out
       </button>
-      <ModalApproveAction
-        isOpen={open}
-        onCancel={() => setOpen(false)}
-        onConfirm={handleConfirm}
-      />
     </>
-  );
-};
+  )
+}
 
-export default LogOutBtn;
+export default LogOutBtn

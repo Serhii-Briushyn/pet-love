@@ -10,29 +10,33 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { authReducer } from "./auth/slice";
-import { newsReducer } from "./news/slice";
-import { AuthState } from "types/auth/state";
 import { PersistPartial } from "redux-persist/es/persistReducer";
+import { UsersState } from "./users/types";
+import { usersReducer } from "./users/slice";
 import { uiReducer } from "./ui/slice";
-import { loadingMiddleware } from "store/middleware/loadingMiddleware";
+import { newsReducer } from "./news/slice";
+import { noticesReducer } from "./notices/slice";
 import { friendsReducer } from "./friends/slice";
+import { citiesReducer } from "./cities/slice";
+import { loadingMiddleware } from "@middlewares/loadingMiddleware";
 
-const authPersistConfig = {
-  key: "auth",
+const usersPersistConfig = {
+  key: "users",
   storage,
   whitelist: ["token", "isLoggedIn"],
 };
 
-const persistedAuthReducer: Reducer<AuthState & PersistPartial> =
-  persistReducer(authPersistConfig, authReducer);
+const persistedUsersReducer: Reducer<UsersState & PersistPartial> =
+  persistReducer(usersPersistConfig, usersReducer);
 
 export const store = configureStore({
   reducer: {
-    auth: persistedAuthReducer,
+    users: persistedUsersReducer,
     ui: uiReducer,
     news: newsReducer,
+    notices: noticesReducer,
     friends: friendsReducer,
+    cities: citiesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

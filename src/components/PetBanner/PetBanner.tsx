@@ -2,39 +2,49 @@ type PetBannerProps = {
   page: "register" | "login"
 }
 
+const petData = {
+  register: {
+    img1x: "/images/cat-img.png",
+    img2x: "/images/cat-img@2x.png",
+    alt: "Cat",
+    name: "Jack",
+    date: "18.10.2021",
+    description:
+      "Jack is a gray Persian cat with green eyes. He loves to be pampered and groomed, and enjoys playing with toys.",
+  },
+  login: {
+    img1x: "/images/dog-img.png",
+    img2x: "/images/dog-img@2x.png",
+    alt: "Dog",
+    name: "Rich",
+    date: "21.09.2020",
+    description:
+      "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!",
+  },
+}
+
 const PetBanner: React.FC<PetBannerProps> = ({ page }) => {
-  const bannerImg =
-    page === "register"
-      ? "/images/cat-img.png"
-      : page === "login"
-        ? "/images/dog-img.png"
-        : undefined
-
-  const bannerAlt = page === "register" ? "Cat" : "Dog"
-
-  const name = page === "register" ? "Jack" : "Rich"
-
-  const date = page === "register" ? "18.10.2021" : "21.09.2020"
-
-  const description =
-    page === "register"
-      ? "Jack is a gray Persian cat with green eyes. He loves to be pampered and groomed, and enjoys playing with toys."
-      : "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+  const pet = petData[page]
 
   return (
-    <div className="tablet:flex desktop:left-15 desktop:bottom-24 absolute bottom-8 left-8 hidden w-76 gap-2 rounded-[20px] bg-white p-4">
+    <div className="absolute bottom-8 left-8 hidden w-76 gap-2 rounded-3xl bg-white p-4 lg:flex xl:bottom-24 xl:left-15">
       <div className="bg-secondary flex h-15 w-15 shrink-0 items-center justify-center rounded-full">
-        <img className="h-auto w-8" src={bannerImg} alt={bannerAlt} />
+        <img
+          className="h-auto w-8"
+          src={pet.img1x}
+          srcSet={`${pet.img1x} 1x, ${pet.img2x} 2x`}
+          alt={pet.alt}
+        />
       </div>
 
       <div>
         <div className="flex items-center justify-between">
-          <p className="text-primary text-base font-bold">{name}</p>
+          <p className="text-primary text-base font-bold">{pet.name}</p>
           <p className="text-xs font-medium">
-            <span className="text-black/50">Birthday:</span> {date}
+            <span className="text-black/50">Birthday:</span> {pet.date}
           </p>
         </div>
-        <p className="text-xs font-medium">{description}</p>
+        <p className="text-xs font-medium">{pet.description}</p>
       </div>
     </div>
   )

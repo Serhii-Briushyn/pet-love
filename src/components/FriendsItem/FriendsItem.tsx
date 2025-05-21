@@ -1,16 +1,16 @@
-import InfoRow from "components/InfoRow/InfoRow";
-import { getTodaySchedule } from "helpers/getTodaySchedule";
-import { FriendsResponse } from "types/friends/types";
+import InfoRow from "@components/InfoRow/InfoRow"
+import { FriendsResponse } from "@store/friends/types"
+import { getTodaySchedule } from "@utils/getTodaySchedule"
 
-interface FriendItemProps {
-  friend: FriendsResponse;
+type FriendItemProps = {
+  friend: FriendsResponse
 }
 
-const FriendsItem = ({ friend }: FriendItemProps) => {
+const FriendsItem: React.FC<FriendItemProps> = ({ friend }) => {
   return (
-    <li className="bg-white relative flex gap-3.5 rounded-[15px] px-5 py-10">
-      <div className="absolute right-3 top-3 bg-secondary rounded-main p-2">
-        <p className="text-xs text-primary tracking-tight tablet:text-sm">
+    <li className="relative flex gap-3.5 rounded-2xl bg-white px-5 py-10">
+      <div className="bg-secondary absolute top-3 right-3 rounded-4xl p-2">
+        <p className="text-primary text-xs tracking-tight lg:text-sm">
           {getTodaySchedule(friend.workDays)}
         </p>
       </div>
@@ -18,16 +18,16 @@ const FriendsItem = ({ friend }: FriendItemProps) => {
       <img
         src={friend.imageUrl || "/images/no-image.png"}
         alt={friend.title}
-        className="w-20 h-20 rounded-full object-cover tablet:w-22.5 tablet:h-22.5"
+        className="h-20 w-20 rounded-full object-cover lg:h-22.5 lg:w-22.5"
         loading="lazy"
       />
 
-      <div className="flex flex-col gap-3.5 tablet:gap-5">
+      <div className="flex flex-col gap-3.5 lg:gap-5">
         <a
           href={friend.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-base w-max font-bold line-clamp-1 tablet:text-xl hover:underline"
+          className="line-clamp-1 text-base font-bold hover:underline lg:text-xl"
         >
           {friend.title}
         </a>
@@ -51,7 +51,7 @@ const FriendsItem = ({ friend }: FriendItemProps) => {
         </div>
       </div>
     </li>
-  );
-};
+  )
+}
 
-export default FriendsItem;
+export default FriendsItem

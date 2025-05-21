@@ -1,50 +1,71 @@
-import clsx from "clsx";
-import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { NavLink } from "react-router-dom"
+import clsx from "clsx"
+
+import { AppDispatch } from "@store/store"
+import { closeModal } from "@store/ui/slice"
+
 type NavigationProps = {
-  isInverted?: boolean;
-  onClose?: () => void;
-};
+  variant: "header" | "menu"
+  isHome?: boolean
+}
 
-const Nav: React.FC<NavigationProps> = ({ isInverted = false, onClose }) => {
-  const baseStyles =
-    "flex items-center justify-center rounded-main h-12 px-[15px] border tablet:h-12.5 transition-all duration-200 ease-in";
+const Nav: React.FC<NavigationProps> = ({ variant, isHome }) => {
+  const dispatch = useDispatch<AppDispatch>()
+  const closeMenu = () => dispatch(closeModal())
 
-  const variantStyles = clsx({
-    "hover:border-primary border-black/15 text-black": !isInverted,
-    "border-white/40 text-white hover:border-white": isInverted,
-  });
+  const isHeader = variant === "header"
+  const isMenu = variant === "menu"
+  const isColorStyle = (isMenu && isHome) || (isHeader && !isHome)
+  const isLightStyle = (isMenu && !isHome) || (isHeader && isHome)
+
+  const containerClass = clsx("absolute gap-2.5", {
+    "right-1/2 hidden translate-x-1/2 flex-row xl:flex": isHeader,
+    "top-1/2 flex -translate-y-2/3 flex-col": isMenu,
+  })
+
+  const linkClass = clsx(
+    "flex h-12 w-30 items-center justify-center rounded-4xl border transition-all duration-200 ease-in",
+    {
+      "hover:border-primary border-black/15 text-black": isColorStyle,
+      "border-white/40 text-white hover:border-white": isLightStyle,
+    },
+  )
 
   const getLinkClasses = (isActive: boolean) =>
-    clsx(baseStyles, variantStyles, {
-      "border-primary": isActive && !isInverted,
-      "border-white": isActive && isInverted,
-    });
+    clsx(linkClass, {
+      "border-primary": isActive && isColorStyle,
+      "border-white/100": isActive && isLightStyle,
+    })
 
   return (
-    <nav className="max-desktop:w-30 desktop:flex-row flex flex-col gap-2.5">
+    <nav className={containerClass}>
       <NavLink
         className={({ isActive }) => getLinkClasses(isActive)}
-        onClick={onClose}
+        onClick={isMenu ? closeMenu : undefined}
         to="/news"
+        end
       >
         News
       </NavLink>
       <NavLink
         className={({ isActive }) => getLinkClasses(isActive)}
-        onClick={onClose}
+        onClick={isMenu ? closeMenu : undefined}
         to="/notices"
+        end
       >
         Find pet
       </NavLink>
       <NavLink
         className={({ isActive }) => getLinkClasses(isActive)}
-        onClick={onClose}
+        onClick={isMenu ? closeMenu : undefined}
         to="/friends"
+        end
       >
         Our friends
       </NavLink>
     </nav>
-  );
-};
+  )
+}
 
-export default Nav;
+export default Nav
