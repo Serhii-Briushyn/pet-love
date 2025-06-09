@@ -2,23 +2,27 @@ import { useSelector, useDispatch } from "react-redux"
 import { useLocation } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 
-import { selectCurrentModal, selectModalProps } from "@store/ui/selectors"
+import { selectCurrentModal } from "@store/ui/selectors"
 import { closeModal } from "@store/ui/slice"
+import { clearSelectedNotice } from "@store/notices/slice"
 
 import Modal from "@components/Modal/Modal"
 import ModalApproveAction from "@components/ModalApproveAction/ModalApproveAction"
-import ModalNotice, { ModalNoticeProps } from "@components/ModalNotice/ModalNotice"
 import ModalAttention from "@components/ModalAttention/ModalAttention"
 import BurgerMenu from "@components/BurgerMenu/BurgerMenu"
+import ModalEditUser from "@components/ModalEditUser/ModalEditUser"
+import ModalNotice from "@components/ModalNotice/ModalNotice"
 
 const ModalManager = () => {
   const currentModal = useSelector(selectCurrentModal)
-  const modalProps = useSelector(selectModalProps)
   const { pathname } = useLocation()
   const dispatch = useDispatch()
   const isHome = pathname === "/"
 
-  const handleClose = () => dispatch(closeModal())
+  const handleClose = () => {
+    if (currentModal === "notice") dispatch(clearSelectedNotice())
+    dispatch(closeModal())
+  }
 
   return (
     <AnimatePresence>
@@ -30,8 +34,9 @@ const ModalManager = () => {
         >
           {currentModal === "menu" && <BurgerMenu isHome={isHome} />}
           {currentModal === "approved" && <ModalApproveAction />}
-          {currentModal === "notice" && <ModalNotice {...(modalProps as ModalNoticeProps)} />}
+          {currentModal === "notice" && <ModalNotice />}
           {currentModal === "attention" && <ModalAttention />}
+          {currentModal === "edit" && <ModalEditUser />}
         </Modal>
       )}
     </AnimatePresence>

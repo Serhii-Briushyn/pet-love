@@ -63,8 +63,9 @@ const RegisterForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off" className="mb-3 w-full lg:mb-4">
           <div className="mb-6 flex flex-col gap-2.5 lg:mb-8 lg:gap-4">
             <FormInput
-              type="name"
+              type="text"
               placeholder="Name"
+              autoComplete="name"
               error={errors.name}
               touched={touchedFields.name}
               successMessage="Name looks good"
@@ -75,6 +76,7 @@ const RegisterForm = () => {
             <FormInput
               type="email"
               placeholder="Email"
+              autoComplete="email"
               error={errors.email}
               touched={touchedFields.email}
               successMessage="Email is valid"
@@ -83,8 +85,8 @@ const RegisterForm = () => {
             />
 
             <PasswordInput
-              type="password"
               placeholder="Password"
+              autoComplete="password"
               error={errors.password}
               touched={touchedFields.password}
               show={showPassword}
@@ -95,8 +97,8 @@ const RegisterForm = () => {
             />
 
             <PasswordInput
-              type="confirmPassword"
               placeholder="Confirm password"
+              autoComplete="password"
               error={errors.confirmPassword}
               touched={touchedFields.confirmPassword}
               show={showConfirmPassword}

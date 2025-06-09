@@ -2,7 +2,7 @@ import AuthNav from "@components/AuthNav/AuthNav"
 
 const ModalAttention = () => {
   return (
-    <div className="mobile:w-83 flex flex-col items-center rounded-4xl bg-white px-5 py-10 lg:w-116 lg:p-15">
+    <div className="flex flex-col items-center rounded-4xl bg-white px-5 py-10 sm:w-83 lg:w-116 lg:p-15">
       <div className="bg-secondary mb-5 flex h-20 w-20 items-center justify-center rounded-full">
         <img
           className="h-11 w-11"

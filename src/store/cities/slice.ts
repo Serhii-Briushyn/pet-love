@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CitiesState } from "./types";
-import { fetchCities } from "./operations";
+import { createSlice } from "@reduxjs/toolkit"
+import { CitiesState } from "./types"
+import { fetchCities } from "./operations"
 
 const initialState: CitiesState = {
   cities: [],
   isError: null,
-};
+}
 
 const citiesSlice = createSlice({
   name: "cities",
@@ -15,15 +15,15 @@ const citiesSlice = createSlice({
     builder
       // -------------------- fetchCities --------------------
       .addCase(fetchCities.pending, (state) => {
-        state.isError = null;
+        state.isError = null
       })
       .addCase(fetchCities.fulfilled, (state, action) => {
-        state.cities = action.payload;
+        state.cities = action.payload
       })
       .addCase(fetchCities.rejected, (state, action) => {
-        state.isError = action.payload as string;
-      });
+        state.isError = action.payload as string
+      })
   },
-});
+})
 
-export const citiesReducer = citiesSlice.reducer;
+export const citiesReducer = citiesSlice.reducer

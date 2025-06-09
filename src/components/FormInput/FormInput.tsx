@@ -5,6 +5,7 @@ import { FieldError } from "react-hook-form"
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   type: string
   placeholder: string
+  autoComplete: string
   error?: FieldError
   touched?: boolean
   successMessage?: string
@@ -13,6 +14,7 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
 const FormInput = ({
   type,
   placeholder,
+  autoComplete,
   error,
   touched,
   successMessage,
@@ -35,7 +37,7 @@ const FormInput = ({
           className={inputClass}
           type={type}
           placeholder={placeholder}
-          autoComplete={type}
+          autoComplete={autoComplete}
           {...rest}
         />
         {touched && value && (

@@ -2,14 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"
 
 interface UIState {
   isLoading: boolean
-  currentModal: null | "menu" | "approved" | "attention" | "notice"
-  modalProps: Record<string, unknown>
+  currentModal: null | "menu" | "approved" | "attention" | "notice" | "edit"
 }
 
 const initialState: UIState = {
   isLoading: false,
   currentModal: null,
-  modalProps: {},
 }
 
 const uiSlice = createSlice({
@@ -21,11 +19,9 @@ const uiSlice = createSlice({
     },
     openModal: (state, action) => {
       state.currentModal = action.payload.name
-      state.modalProps = action.payload.props || {}
     },
     closeModal: (state) => {
       state.currentModal = null
-      state.modalProps = {}
     },
   },
 })

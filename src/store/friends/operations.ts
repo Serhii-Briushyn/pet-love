@@ -1,30 +1,27 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { FriendsResponse } from "./types";
-import { goItApi } from "@store/users/operations";
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "axios"
+import { FriendsResponse } from "./types"
+import { goItApi } from "@store/users/operations"
 
 // -------------------- fetchFriends --------------------
 
-export const fetchFriends = createAsyncThunk<
-  FriendsResponse[],
-  void,
-  { rejectValue: string }
->("friends/fetchFriends", async (_, thunkAPI) => {
-  try {
-    const res = await goItApi.get("/friends");
-    return res.data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      const statusCode = error.response.status;
+export const fetchFriends = createAsyncThunk<FriendsResponse[], void, { rejectValue: string }>(
+  "friends/fetchFriends",
+  async (_, thunkAPI) => {
+    try {
+      const res = await goItApi.get("/friends")
+      return res.data
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const statusCode = error.response.status
 
-      if (statusCode === 404) {
-        return thunkAPI.rejectWithValue("Friends not found.");
-      } else if (statusCode === 500) {
-        return thunkAPI.rejectWithValue(
-          "Oops! Something went wrong. Please try again."
-        );
+        if (statusCode === 404) {
+          return thunkAPI.rejectWithValue("Friends not found.")
+        } else if (statusCode === 500) {
+          return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
+        }
       }
+      return thunkAPI.rejectWithValue("Failed to fetch friends.")
     }
-    return thunkAPI.rejectWithValue("Failed to fetch friends.");
-  }
-});
+  },
+)

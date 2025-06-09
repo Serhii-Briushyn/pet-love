@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from "axios"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import {
   AddPetRequest,
   AuthResponse,
@@ -8,10 +8,10 @@ import {
   EditRequest,
   SignInRequest,
   SignUpRequest,
-} from './types'
+} from "./types"
 
 export const goItApi = axios.create({
-  baseURL: 'https://petlove.b.goit.study/api/',
+  baseURL: "https://petlove.b.goit.study/api/",
 })
 
 export const setAuthHeader = (token: string): void => {
@@ -19,16 +19,16 @@ export const setAuthHeader = (token: string): void => {
 }
 
 export const clearAuthHeader = () => {
-  goItApi.defaults.headers.common.Authorization = ''
+  goItApi.defaults.headers.common.Authorization = ""
 }
 
 // -------------------- register --------------------
 
 export const register = createAsyncThunk<AuthResponse, SignUpRequest, { rejectValue: string }>(
-  'users/signup',
+  "users/signup",
   async (credentials, thunkAPI) => {
     try {
-      const res = await goItApi.post<AuthResponse>('/users/signup', credentials)
+      const res = await goItApi.post<AuthResponse>("/users/signup", credentials)
       setAuthHeader(res.data.token)
       return res.data
     } catch (error) {
@@ -37,18 +37,18 @@ export const register = createAsyncThunk<AuthResponse, SignUpRequest, { rejectVa
 
         if (statusCode === 400) {
           return thunkAPI.rejectWithValue(
-            'Invalid input. Please check your name, email and password.',
+            "Invalid input. Please check your name, email and password.",
           )
         } else if (statusCode === 404) {
-          return thunkAPI.rejectWithValue('Service not found.')
+          return thunkAPI.rejectWithValue("Service not found.")
         } else if (statusCode === 409) {
-          return thunkAPI.rejectWithValue('User with this email is already registered.')
+          return thunkAPI.rejectWithValue("User with this email is already registered.")
         } else if (statusCode === 500) {
-          return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+          return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
         }
       }
 
-      return thunkAPI.rejectWithValue('Registration failed. Please try again.')
+      return thunkAPI.rejectWithValue("Registration failed. Please try again.")
     }
   },
 )
@@ -56,10 +56,10 @@ export const register = createAsyncThunk<AuthResponse, SignUpRequest, { rejectVa
 // -------------------- login --------------------
 
 export const login = createAsyncThunk<AuthResponse, SignInRequest, { rejectValue: string }>(
-  'users/signin',
+  "users/signin",
   async (credentials, thunkAPI) => {
     try {
-      const res = await goItApi.post<AuthResponse>('/users/signin', credentials)
+      const res = await goItApi.post<AuthResponse>("/users/signin", credentials)
       setAuthHeader(res.data.token)
       return res.data
     } catch (error) {
@@ -68,18 +68,18 @@ export const login = createAsyncThunk<AuthResponse, SignInRequest, { rejectValue
 
         if (statusCode === 400) {
           return thunkAPI.rejectWithValue(
-            'Invalid input. Please check your name, email and password.',
+            "Invalid input. Please check your name, email and password.",
           )
         } else if (statusCode === 401) {
-          return thunkAPI.rejectWithValue('Email or password is incorrect.')
+          return thunkAPI.rejectWithValue("Email or password is incorrect.")
         } else if (statusCode === 404) {
-          return thunkAPI.rejectWithValue('Service not found.')
+          return thunkAPI.rejectWithValue("Service not found.")
         } else if (statusCode === 500) {
-          return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+          return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
         }
       }
 
-      return thunkAPI.rejectWithValue('Login failed. Please try again.')
+      return thunkAPI.rejectWithValue("Login failed. Please try again.")
     }
   },
 )
@@ -87,25 +87,25 @@ export const login = createAsyncThunk<AuthResponse, SignInRequest, { rejectValue
 // -------------------- logout --------------------
 
 export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
-  'users/signout',
+  "users/signout",
   async (_, thunkAPI) => {
     try {
-      await goItApi.post('/users/signout')
+      await goItApi.post("/users/signout")
       clearAuthHeader()
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const statusCode = error.response.status
 
         if (statusCode === 401) {
-          return thunkAPI.rejectWithValue('Unauthorized. Please log in again.')
+          return thunkAPI.rejectWithValue("Unauthorized. Please log in again.")
         } else if (statusCode === 404) {
-          return thunkAPI.rejectWithValue('Service not found.')
+          return thunkAPI.rejectWithValue("Service not found.")
         } else if (statusCode === 500) {
-          return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+          return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
         }
       }
 
-      return thunkAPI.rejectWithValue('Logout failed. Please try again.')
+      return thunkAPI.rejectWithValue("Logout failed. Please try again.")
     }
   },
 )
@@ -113,25 +113,25 @@ export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
 // -------------------- getCurrentUser --------------------
 
 export const getCurrentUser = createAsyncThunk<CurrentResponse, void, { rejectValue: string }>(
-  'users/currentUser',
+  "users/currentUser",
   async (_, thunkAPI) => {
     try {
-      const res = await goItApi.get<CurrentResponse>('/users/current')
+      const res = await goItApi.get<CurrentResponse>("/users/current")
       return res.data
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const statusCode = error.response.status
 
         if (statusCode === 401) {
-          return thunkAPI.rejectWithValue('Unauthorized. Please log in again.')
+          return thunkAPI.rejectWithValue("Unauthorized. Please log in again.")
         } else if (statusCode === 404) {
-          return thunkAPI.rejectWithValue('Service not found.')
+          return thunkAPI.rejectWithValue("Service not found.")
         } else if (statusCode === 500) {
-          return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+          return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
         }
       }
 
-      return thunkAPI.rejectWithValue('Failed to fetch user data.')
+      return thunkAPI.rejectWithValue("Failed to fetch user data.")
     }
   },
 )
@@ -142,24 +142,24 @@ export const getCurrentUserFull = createAsyncThunk<
   CurrentFullResponse,
   void,
   { rejectValue: string }
->('users/currentUserFull', async (_, thunkAPI) => {
+>("users/currentUserFull", async (_, thunkAPI) => {
   try {
-    const res = await goItApi.get<CurrentFullResponse>('/users/current/full')
+    const res = await goItApi.get<CurrentFullResponse>("/users/current/full")
     return res.data
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       const statusCode = error.response.status
 
       if (statusCode === 401) {
-        return thunkAPI.rejectWithValue('Unauthorized. Please log in again.')
+        return thunkAPI.rejectWithValue("Unauthorized. Please log in again.")
       } else if (statusCode === 404) {
-        return thunkAPI.rejectWithValue('Service not found.')
+        return thunkAPI.rejectWithValue("Service not found.")
       } else if (statusCode === 500) {
-        return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+        return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
       }
     }
 
-    return thunkAPI.rejectWithValue('Failed to fetch full user data.')
+    return thunkAPI.rejectWithValue("Failed to fetch full user data.")
   }
 })
 
@@ -169,51 +169,51 @@ export const updateUserProfile = createAsyncThunk<
   CurrentFullResponse,
   EditRequest,
   { rejectValue: string }
->('users/editProfile', async (userData, thunkAPI) => {
+>("users/editProfile", async (userData, thunkAPI) => {
   try {
-    const res = await goItApi.patch<CurrentFullResponse>('/users/current/edit', userData)
+    const res = await goItApi.patch<CurrentFullResponse>("/users/current/edit", userData)
     return res.data
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       const statusCode = error.response.status
 
       if (statusCode === 400) {
-        return thunkAPI.rejectWithValue('Invalid input. Please check all fields.')
+        return thunkAPI.rejectWithValue("Invalid input. Please check all fields.")
       } else if (statusCode === 404) {
-        return thunkAPI.rejectWithValue('Service not found.')
+        return thunkAPI.rejectWithValue("Service not found.")
       } else if (statusCode === 409) {
-        return thunkAPI.rejectWithValue('User with this email is already registered.')
+        return thunkAPI.rejectWithValue("User with this email is already registered.")
       } else if (statusCode === 500) {
-        return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+        return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
       }
     }
 
-    return thunkAPI.rejectWithValue('Failed to update profile.')
+    return thunkAPI.rejectWithValue("Failed to update profile.")
   }
 })
 
 // -------------------- addPet --------------------
 
 export const addPet = createAsyncThunk<CurrentFullResponse, AddPetRequest, { rejectValue: string }>(
-  'users/addPet',
+  "users/addPet",
   async (petData, thunkAPI) => {
     try {
-      const res = await goItApi.post<CurrentFullResponse>('/users/current/pets/add', petData)
+      const res = await goItApi.post<CurrentFullResponse>("/users/current/pets/add", petData)
       return res.data
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const statusCode = error.response.status
 
         if (statusCode === 400) {
-          return thunkAPI.rejectWithValue('Invalid input. Please check all fields.')
+          return thunkAPI.rejectWithValue("Invalid input. Please check all fields.")
         } else if (statusCode === 404) {
-          return thunkAPI.rejectWithValue('Service not found.')
+          return thunkAPI.rejectWithValue("Service not found.")
         } else if (statusCode === 500) {
-          return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+          return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
         }
       }
 
-      return thunkAPI.rejectWithValue('Failed to add pet. Please try again.')
+      return thunkAPI.rejectWithValue("Failed to add pet. Please try again.")
     }
   },
 )
@@ -221,7 +221,7 @@ export const addPet = createAsyncThunk<CurrentFullResponse, AddPetRequest, { rej
 // -------------------- deletePet --------------------
 
 export const deletePet = createAsyncThunk<CurrentFullResponse, string, { rejectValue: string }>(
-  'users/deletePet',
+  "users/deletePet",
   async (petId, thunkAPI) => {
     try {
       const res = await goItApi.delete<CurrentFullResponse>(`/users/current/pets/remove/${petId}`)
@@ -231,17 +231,17 @@ export const deletePet = createAsyncThunk<CurrentFullResponse, string, { rejectV
         const statusCode = error.response.status
 
         if (statusCode === 400) {
-          return thunkAPI.rejectWithValue('Invalid pet ID.')
+          return thunkAPI.rejectWithValue("Invalid pet ID.")
         } else if (statusCode === 404) {
-          return thunkAPI.rejectWithValue('Pet not found.')
+          return thunkAPI.rejectWithValue("Pet not found.")
         } else if (statusCode === 409) {
-          return thunkAPI.rejectWithValue('You are not the owner of this pet.')
+          return thunkAPI.rejectWithValue("You are not the owner of this pet.")
         } else if (statusCode === 500) {
-          return thunkAPI.rejectWithValue('Oops! Something went wrong. Please try again.')
+          return thunkAPI.rejectWithValue("Oops! Something went wrong. Please try again.")
         }
       }
 
-      return thunkAPI.rejectWithValue('Failed to delete pet.')
+      return thunkAPI.rejectWithValue("Failed to delete pet.")
     }
   },
 )

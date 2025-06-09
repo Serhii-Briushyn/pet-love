@@ -3,8 +3,8 @@ import { FieldError } from "react-hook-form"
 import clsx from "clsx"
 
 interface PasswordInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  type: string
   placeholder: string
+  autoComplete: string
   error?: FieldError
   touched?: boolean
   show: boolean
@@ -13,8 +13,8 @@ interface PasswordInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const PasswordInput = ({
-  type,
   placeholder,
+  autoComplete,
   error,
   touched,
   show,
@@ -39,7 +39,7 @@ const PasswordInput = ({
           className={inputClass}
           type={show ? "text" : "password"}
           placeholder={placeholder}
-          autoComplete={type}
+          autoComplete={autoComplete}
           {...rest}
         />
 

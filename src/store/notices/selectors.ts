@@ -1,4 +1,4 @@
-import { RootState } from '@store/store'
+import { RootState } from "@store/store"
 
 export const selectNotices = (state: RootState) => state.notices.notices
 export const selectSelectedNotice = (state: RootState) => state.notices.selectedNotice

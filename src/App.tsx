@@ -1,18 +1,22 @@
 import { Suspense } from "react"
 import { Route, Routes } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
+
+import { useAuthInit } from "@hooks/useAuthInit"
+
 import Layout from "@components/Layout"
+import PrivateRoute from "@components/PrivateRoute"
 import RestrictedRoute from "@components/RestrictedRoute"
+import Loader from "@components/Loader/Loader"
+
 import HomePage from "@pages/HomePage/HomePage"
 import NewsPage from "@pages/NewsPage/NewsPage"
 import NoticesPage from "@pages/NoticesPage/NoticesPage"
 import FriendsPage from "@pages/FriendsPage/FriendsPage"
 import RegisterPage from "@pages/RegisterPage/RegisterPage"
 import LoginPage from "@pages/LoginPage/LoginPage"
-import Loader from "@components/Loader/Loader"
-import { useAuthInit } from "@hooks/useAuthInit"
 import ProfilePage from "@pages/ProfilePage/ProfilePage"
-import PrivateRoute from "@components/PrivateRoute"
+import AddPetPage from "@pages/AddPetPage/AddPetPage"
 
 function App() {
   useAuthInit()
@@ -47,6 +51,14 @@ function App() {
               element={
                 <PrivateRoute redirectTo="/">
                   <ProfilePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="add-pet"
+              element={
+                <PrivateRoute redirectTo="/">
+                  <AddPetPage />
                 </PrivateRoute>
               }
             />

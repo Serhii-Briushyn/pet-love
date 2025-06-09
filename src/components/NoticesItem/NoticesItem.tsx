@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import toast from "react-hot-toast"
+import clsx from "clsx"
 
 import { AppDispatch } from "@store/store"
 import { fetchNoticeById } from "@store/notices/operations"
@@ -14,14 +15,18 @@ import { formatPrice } from "@utils/formatPrice"
 
 type Props = {
   notice: Notice
+  context?: "favorites" | "viewed" | "default"
 }
 
-const NoticesItem: React.FC<Props> = ({ notice }) => {
+const NoticesItem: React.FC<Props> = ({ notice, context = "default" }) => {
   const dispatch = useDispatch<AppDispatch>()
   const isLoggedIn = useSelector(selectIsLoggedIn)
   const favoritesIds = useSelector(selectFavoritesIds)
 
   const isFavorite = favoritesIds.includes(notice._id)
+  const isDefault = context === "default"
+  const isProfileFavorites = context === "favorites"
+  const isProfileViewed = context === "viewed"
 
   const handleLearnMore = async () => {
     if (!isLoggedIn) {
@@ -29,8 +34,8 @@ const NoticesItem: React.FC<Props> = ({ notice }) => {
       return
     }
     try {
-      const result = await dispatch(fetchNoticeById(notice._id)).unwrap()
-      dispatch(openModal({ name: "notice", notice: result }))
+      await dispatch(fetchNoticeById(notice._id)).unwrap()
+      dispatch(openModal({ name: "notice" }))
     } catch (error) {
       toast.error(error as string)
     }
@@ -101,16 +106,22 @@ const NoticesItem: React.FC<Props> = ({ notice }) => {
           Learn more
         </button>
 
-        <button
-          onClick={handleFavoriteToggle}
-          className="bg-secondary group flex h-full w-11.5 shrink-0 cursor-pointer items-center justify-center rounded-full lg:w-12"
-        >
-          <svg
-            className={`stroke-primary h-4.5 w-4.5 transition-all duration-200 ease-in ${isFavorite ? "fill-primary group-hover:fill-transparent" : "group-hover:fill-primary fill-transparent"}`}
+        {!isProfileViewed && (
+          <button
+            onClick={handleFavoriteToggle}
+            className="bg-secondary group hover:bg-secondary-hover flex h-full w-11.5 shrink-0 cursor-pointer items-center justify-center rounded-full transition-all duration-200 ease-in lg:w-12"
           >
-            <use href="/sprite.svg#icon-heart" />
-          </svg>
-        </button>
+            <svg
+              className={clsx(
+                "stroke-primary h-4.5 w-4.5 transition-all duration-200 ease-in",
+                isFavorite && isDefault ? "fill-primary" : "fill-none",
+              )}
+            >
+              {isDefault && <use href="/sprite.svg#icon-heart" />}
+              {isProfileFavorites && <use href="/sprite.svg#icon-trash" />}
+            </svg>
+          </button>
+        )}
       </div>
     </li>
   )

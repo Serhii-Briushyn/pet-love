@@ -1,9 +1,11 @@
-import { Notice } from '@store/notices/types'
+import { Notice } from "@store/notices/types"
 
 // -------------------- State types --------------------
 
 export interface UsersState {
   user: CurrentFullResponse | null
+  favorites: Notice[]
+  viewed: Notice[]
   token: string | null
   favoritesIds: string[]
   isLoggedIn: boolean
@@ -51,8 +53,8 @@ export type CurrentFullResponse = {
   avatar: string
   phone: string
   token: string
-  noticesViewed: Notice[]
   noticesFavorites: Notice[]
+  noticesViewed: Notice[]
   pets: Pet[]
   createdAt: string
   updatedAt: string

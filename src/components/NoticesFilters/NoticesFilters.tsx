@@ -9,7 +9,7 @@ import {
   selectSpeciesOptions,
 } from "@store/notices/selectors"
 import { selectCities } from "@store/cities/selectors"
-import { setFilters, setSorting } from "@store/notices/slice"
+import { resetFilters, setFilters, setSorting } from "@store/notices/slice"
 import { useNoticesInit } from "@hooks/useNoticesInit"
 
 import SearchField from "@components/SearchField/SearchField"
@@ -34,6 +34,8 @@ const NoticesFilters = () => {
       dispatch(setFilters({ [field]: value }))
     }
   }
+
+  const isAnyFilterActive = Object.values(filters).some((v) => v !== "")
 
   return (
     <div className="bg-secondary mb-10 rounded-4xl p-5 lg:px-8 lg:py-10 xl:px-10">
@@ -81,6 +83,15 @@ const NoticesFilters = () => {
             onClick={() => dispatch(setSorting(sorting === key ? null : key))}
           />
         ))}
+        {isAnyFilterActive && (
+          <button
+            type="button"
+            onClick={() => dispatch(resetFilters())}
+            className="bg-primary hover:bg-primary-hover flex h-10.5 cursor-pointer items-center rounded-4xl px-3 text-white transition-all duration-200 ease-in lg:h-12 lg:px-3.5"
+          >
+            Reset filters
+          </button>
+        )}
       </div>
     </div>
   )

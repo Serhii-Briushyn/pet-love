@@ -54,3 +54,34 @@
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .profile-scrollbar::-webkit-scrollbar {
+    width: 22px;
+  }
+
+  .profile-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(38, 38, 38, 0.08);
+    border-radius: 13px;
+    border: 7px solid transparent;
+    background-clip: padding-box;
+    cursor: pointer;
+  }
+
+  .profile-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .profile-scrollbar {
+    scrollbar-gutter: stable;
+  }
+}

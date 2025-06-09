@@ -36,7 +36,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({ text, value, options, onCha
     "hover:text-primary mb-2 w-full cursor-pointer truncate text-black/60 transition-all duration-200 ease-in last:mb-0"
 
   return (
-    <div className="relative w-full lg:h-12 lg:max-w-47.5" ref={wrapperRef}>
+    <div className="relative h-10.5 w-full lg:h-12 lg:max-w-47.5" ref={wrapperRef}>
       <button
         type="button"
         onClick={toggleOpen}

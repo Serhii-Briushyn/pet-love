@@ -19,7 +19,7 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   const {
-    register: formRegister,
+    register,
     handleSubmit,
     formState: { errors, isSubmitting, touchedFields },
     reset,
@@ -57,23 +57,25 @@ const LoginForm = () => {
             <FormInput
               type="email"
               placeholder="Email"
+              autoComplete="email"
               error={errors.email}
               touched={touchedFields.email}
               successMessage="Email is valid"
               value={watch("email")}
-              {...formRegister("email")}
+              {...register("email")}
             />
 
             <PasswordInput
               type="password"
               placeholder="Password"
+              autoComplete="password"
               error={errors.password}
               touched={touchedFields.password}
               show={showPassword}
               toggle={togglePasswordVisibility}
               successMessage="Password is secure"
               value={watch("password")}
-              {...formRegister("password")}
+              {...register("password")}
             />
           </div>
           <FormButton type="submit" disabled={isSubmitting}>

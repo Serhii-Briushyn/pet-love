@@ -2,19 +2,18 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { AppDispatch } from "@store/store"
 import { selectFavoritesIds } from "@store/users/selectors"
-import { NoticeByIdResponse } from "@store/notices/types"
+import { selectSelectedNotice } from "@store/notices/selectors"
 import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter"
 import { formatDate } from "@utils/formatDate"
 import { toggleFavorite } from "@utils/handleFavoriteToggle"
 import { formatPrice } from "@utils/formatPrice"
 
-export type ModalNoticeProps = {
-  notice: NoticeByIdResponse
-}
-
-const ModalNotice: React.FC<ModalNoticeProps> = ({ notice }) => {
+const ModalNotice = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const notice = useSelector(selectSelectedNotice)
   const favoritesIds = useSelector(selectFavoritesIds)
+
+  if (!notice) return null
 
   const isFavorite = favoritesIds.includes(notice._id)
 
@@ -31,7 +30,7 @@ const ModalNotice: React.FC<ModalNoticeProps> = ({ notice }) => {
       : "#"
 
   return (
-    <div className="mobile:w-83 flex flex-col items-center rounded-4xl bg-white px-7 py-10 lg:w-118 lg:p-10">
+    <div className="flex flex-col items-center rounded-4xl bg-white px-7 py-10 sm:w-83 lg:w-118 lg:p-10">
       <div className="relative mb-5 h-30 w-30 lg:mb-4 lg:h-37.5 lg:w-37.5">
         <img
           src={notice.imgURL}

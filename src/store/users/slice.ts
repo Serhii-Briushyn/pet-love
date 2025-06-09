@@ -1,18 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { register, login, logout, getCurrentUserFull } from './operations'
-import { UsersState } from './types'
-import { addToFavorites, removeFromFavorites } from '@store/notices/operations'
+import { createSlice } from "@reduxjs/toolkit"
+import { register, login, logout, getCurrentUserFull, updateUserProfile } from "./operations"
+import { UsersState } from "./types"
+import { addToFavorites, removeFromFavorites } from "@store/notices/operations"
 
 const initialState: UsersState = {
   user: null,
-  token: localStorage.getItem('token'),
+  favorites: [],
+  viewed: [],
+  token: localStorage.getItem("token"),
   favoritesIds: [],
   isLoggedIn: false,
   isError: null,
 }
 
 const userSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -61,6 +63,8 @@ const userSlice = createSlice({
         state.isLoggedIn = true
         state.token = action.payload.token
         state.user = action.payload
+        state.favorites = action.payload.noticesFavorites
+        state.viewed = action.payload.noticesViewed
         const { noticesFavorites } = action.payload
         state.favoritesIds = noticesFavorites.map((notice) => notice._id)
       })
@@ -73,6 +77,18 @@ const userSlice = createSlice({
       })
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.favoritesIds = action.payload
+      })
+    // -------------------- updateUserProfile --------------------
+    builder
+      .addCase(updateUserProfile.pending, (state) => {
+        state.isError = null
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.token = action.payload.token
+        state.user = action.payload
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.isError = action.payload as string
       })
   },
 })

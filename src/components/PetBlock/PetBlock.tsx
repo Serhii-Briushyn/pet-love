@@ -27,16 +27,21 @@ const PetBlock: React.FC<PetBlockProps> = ({ page }) => {
   const images = getPetImgSet(page)
 
   const containerClass = clsx(
-    "bg-primary relative flex w-full items-end rounded-4xl bg-auto bg-bottom bg-no-repeat xl:h-full xl:flex-1/2",
+    "bg-primary relative flex w-full items-end rounded-4xl bg-auto bg-bottom-right bg-no-repeat lg:bg-position-[bottom_right_26px] xl:h-full xl:flex-1/2 xl:bg-bottom",
     {
-      "bg-add h-53 lg:h-62": isAdd,
       "bg-auth h-70 lg:h-76": isAuth,
+      "bg-add h-53 justify-center lg:h-62": isAdd,
     },
   )
 
+  const imageClass = clsx({
+    "lg:mr-22.5 lg:ml-auto xl:mr-5": isAuth,
+    "bg-top": isAdd,
+  })
+
   return (
     <div className={containerClass}>
-      <picture className="lg:mr-22.5 lg:ml-auto xl:mr-5">
+      <picture className={imageClass}>
         <source
           media="(min-width: 1280px)"
           srcSet={`${images.desktop["1x"]} 1x, ${images.desktop["2x"]} 2x`}

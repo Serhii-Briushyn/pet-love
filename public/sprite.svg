@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <defs>
+    <symbol id="icon-plus" viewBox="0 0 32 32">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M16 6.667v18.667"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M6.667 16h18.667"/>
+    </symbol>
     <symbol id="icon-eye-fill" viewBox="0 0 32 32">
       <path d="M16 12a4 4 0 0 0 0 8 4 4 0 0 0 0-8zm0 10.667a6.667 6.667 0 0 1 0-13.334 6.667 6.667 0 0 1 0 13.334zM16 6C9.333 6 3.64 10.147 1.333 16c2.307 5.853 8 10 14.667 10s12.36-4.147 14.667-10C28.36 10.147 22.667 6 16 6z"/>
     </symbol>
@@ -83,6 +87,9 @@
     </symbol>
     <symbol id="icon-chevron-down" viewBox="0 0 32 32">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.556" d="m8 12 8 8 8-8"/>
+    </symbol>
+    <symbol id="icon-reset" viewBox="0 0 32 32">
+      <path fill="currentColor" d="M18 28A12 12 0 1 0 6 16v6.2l-3.6-3.6L1 20l6 6l6-6l-1.4-1.4L8 22.2V16a10 10 0 1 1 10 10Z" />
     </symbol>
   </defs>
 </svg>

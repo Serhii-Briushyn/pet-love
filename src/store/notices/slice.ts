@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import {
   fetchNotices,
   fetchNoticeById,
@@ -7,8 +7,8 @@ import {
   fetchCategories,
   fetchSexOptions,
   fetchSpeciesOptions,
-} from './operations'
-import { NoticesState } from './types'
+} from "./operations"
+import { NoticesState } from "./types"
 
 const initialState: NoticesState = {
   notices: [],
@@ -17,11 +17,11 @@ const initialState: NoticesState = {
   currentPage: 1,
   isError: null,
   filters: {
-    keyword: '',
-    category: '',
-    sex: '',
-    species: '',
-    location: '',
+    keyword: "",
+    category: "",
+    sex: "",
+    species: "",
+    location: "",
   },
   sorting: null,
   categories: [],
@@ -30,7 +30,7 @@ const initialState: NoticesState = {
 }
 
 const noticesSlice = createSlice({
-  name: 'notices',
+  name: "notices",
   initialState,
   reducers: {
     setPage(state, action: PayloadAction<number>) {
@@ -47,6 +47,9 @@ const noticesSlice = createSlice({
     resetFilters(state) {
       state.filters = initialState.filters
       state.currentPage = 1
+    },
+    clearSelectedNotice(state) {
+      state.selectedNotice = null
     },
   },
   extraReducers: (builder) => {
@@ -74,7 +77,7 @@ const noticesSlice = createSlice({
         const index = state.notices.findIndex((notice) => notice._id === updatedNotice._id)
 
         if (index !== -1) {
-          state.notices[index].popularity = updatedNotice.popularity // Обновляем только popularity
+          state.notices[index].popularity = updatedNotice.popularity
         }
       })
       .addCase(fetchNoticeById.rejected, (state, action) => {
@@ -127,6 +130,7 @@ const noticesSlice = createSlice({
   },
 })
 
-export const { setPage, setFilters, setSorting, resetFilters } = noticesSlice.actions
+export const { setPage, setFilters, setSorting, resetFilters, clearSelectedNotice } =
+  noticesSlice.actions
 
 export const noticesReducer = noticesSlice.reducer
