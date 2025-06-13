@@ -4,13 +4,13 @@ import clsx from "clsx"
 import { selectUser } from "@store/users/selectors"
 import { formatName } from "@utils/formatName"
 import { isNonEmptyString } from "@utils/isNonEmptyString "
-import { DEFAULT_AVATAR_URL } from "@constants/defaultAvatarUrl"
+import { DEFAULT_AVATAR_URL } from "@constants/defaultUserData"
 
 const UserBlock = () => {
   const user = useSelector(selectUser)
   if (!user) return null
 
-  const isDefaultAvatar = user.avatar === DEFAULT_AVATAR_URL
+  const isNotDefaultAvatar = user.avatar !== DEFAULT_AVATAR_URL
   const isAvatar = isNonEmptyString(user.avatar)
   const isPhone = isNonEmptyString(user.phone)
 
@@ -24,7 +24,7 @@ const UserBlock = () => {
       </div>
 
       <div className="bg-secondary group/avatar relative m-auto mb-7 flex size-23 items-center justify-center rounded-full lg:size-27">
-        {isAvatar && !isDefaultAvatar ? (
+        {isAvatar && isNotDefaultAvatar ? (
           <img src={user.avatar} alt={user.name} className="size-full rounded-full object-cover" />
         ) : (
           <svg className="fill-primary size-10 stroke-none lg:size-12.5">

@@ -4,7 +4,7 @@ import clsx from "clsx"
 
 import { selectUser } from "@store/users/selectors"
 import { formatName } from "@utils/formatName"
-import { DEFAULT_AVATAR_URL } from "@constants/defaultAvatarUrl"
+import { DEFAULT_AVATAR_URL } from "@constants/defaultUserData"
 
 type UserBarProps = {
   isHome?: boolean

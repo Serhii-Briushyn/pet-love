@@ -27,7 +27,7 @@ export const loginValidationSchema = Yup.object({
     .required("Password is required"),
 })
 
-export const editValidationSchema = Yup.object({
+export const editUserValidationSchema = Yup.object({
   name: Yup.string()
     .min(2, "Name must be at least 2 characters")
     .max(30, "Name must be at most 30 characters")
@@ -36,11 +36,51 @@ export const editValidationSchema = Yup.object({
     .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, "Please enter a valid email address")
     .required("Email is required"),
   avatar: Yup.string().matches(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)|blob:.*)$/, {
-    message: "Please enter a valid image format",
+    message: "URL must end with png, jpg, jpeg, gif, bmp or webp",
     excludeEmptyString: true,
   }),
-  phone: Yup.string().matches(/^\+38\d{10}$/, {
-    message: "Enter number in format +38XXXXXXXXXX",
-    excludeEmptyString: true,
-  }),
+  phone: Yup.string()
+    .required("Phone is required")
+    .matches(/^\+38\d{10}$/, {
+      message: "Enter number in format +38XXXXXXXXXX",
+      excludeEmptyString: true,
+    }),
+})
+
+export const addPetValidationSchema = Yup.object({
+  title: Yup.string().required("Title is required"),
+  name: Yup.string().required("Name is required"),
+  imgURL: Yup.string()
+    .required("Image URL is required")
+    .matches(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)|blob:.*)$/, {
+      message: "URL must end with png, jpg, jpeg, gif, bmp or webp",
+      excludeEmptyString: true,
+    }),
+  species: Yup.string()
+    .required("Species is required")
+    .oneOf(
+      [
+        "dog",
+        "cat",
+        "monkey",
+        "bird",
+        "snake",
+        "turtle",
+        "lizard",
+        "frog",
+        "fish",
+        "ants",
+        "bees",
+        "butterfly",
+        "spider",
+        "scorpion",
+      ],
+      "Invalid species value",
+    ),
+  birthday: Yup.string()
+    .required("Birthday is required")
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Birthday must be in YYYY-MM-DD format"),
+  sex: Yup.string()
+    .required("Gender is required")
+    .oneOf(["female", "male", "multiple"], "Invalid sex value"),
 })

@@ -1,23 +1,46 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 
 import { AppDispatch } from "@store/store"
 import { closeModal } from "@store/ui/slice"
-import { logout } from "@store/users/operations"
+import { deletePet, logout } from "@store/users/operations"
+import { selectSelectedPetId } from "@store/users/selectors"
+import { clearSelectedPetId } from "@store/users/slice"
 
-const ModalApproveAction = () => {
+type ModalApproveActionProps = {
+  variant: "approved" | "confirm"
+}
+
+const ModalApproveAction: React.FC<ModalApproveActionProps> = ({ variant }) => {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
+  const petId = useSelector(selectSelectedPetId)
+
+  const isLogout = variant === "approved"
+  const isDelete = variant === "confirm"
 
   const handleConfirm = async () => {
     try {
-      await dispatch(logout()).unwrap()
+      if (isLogout) {
+        await dispatch(logout()).unwrap()
+        navigate("/")
+      }
+
+      if (isDelete && petId) {
+        await dispatch(deletePet(petId)).unwrap()
+        dispatch(clearSelectedPetId())
+      }
+
       dispatch(closeModal())
-      navigate("/")
     } catch (error) {
       toast.error(error as string)
     }
+  }
+
+  const handleCancel = () => {
+    dispatch(closeModal())
+    if (isDelete) dispatch(clearSelectedPetId())
   }
 
   const btnClass =
@@ -36,7 +59,7 @@ const ModalApproveAction = () => {
       </div>
 
       <p className="mb-7 text-center text-xl leading-none font-bold lg:text-2xl">
-        Already leaving?
+        {isLogout ? "Already leaving?" : "Are you sure?"}
       </p>
       <div className="flex flex-wrap justify-center gap-2">
         <button
@@ -47,7 +70,7 @@ const ModalApproveAction = () => {
         </button>
         <button
           className={`${btnClass} bg-black/5 text-black hover:bg-black/10`}
-          onClick={() => dispatch(closeModal())}
+          onClick={handleCancel}
         >
           Cancel
         </button>

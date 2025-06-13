@@ -14,9 +14,9 @@ import { useNoticesInit } from "@hooks/useNoticesInit"
 
 import SearchField from "@components/SearchField/SearchField"
 import CitySearchField from "@components/CitySearchField/CitySearchField"
-import FilterSelect from "@components/FilterSelect/FilterSelect"
 import { sortingOptions } from "@constants/noticesSortingOptions"
 import SortButton from "@components/SortButton/SortButton"
+import DropdownSelect from "@components/DropdownSelect/DropdownSelect"
 
 const NoticesFilters = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -35,7 +35,7 @@ const NoticesFilters = () => {
     }
   }
 
-  const isAnyFilterActive = Object.values(filters).some((v) => v !== "")
+  const isAnyFilterActive = Object.values(filters).some((v) => v !== "") || sorting !== null
 
   return (
     <div className="bg-secondary mb-10 rounded-4xl p-5 lg:px-8 lg:py-10 xl:px-10">
@@ -43,14 +43,16 @@ const NoticesFilters = () => {
         <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4 xl:contents">
           <SearchField variant="notices" value={filters.keyword} onSearch={onChange("keyword")} />
           <div className="flex gap-2 lg:contents">
-            <FilterSelect
-              text="Category"
+            <DropdownSelect
+              variant="filter"
+              placeholder="Category"
               value={filters.category}
               options={categories}
               onChange={onChange("category")}
             />
-            <FilterSelect
-              text="By gender"
+            <DropdownSelect
+              variant="filter"
+              placeholder="By gender"
               value={filters.sex}
               options={sexOptions}
               onChange={onChange("sex")}
@@ -58,8 +60,9 @@ const NoticesFilters = () => {
           </div>
         </div>
         <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4 xl:contents">
-          <FilterSelect
-            text="By type"
+          <DropdownSelect
+            variant="filter"
+            placeholder="By type"
             value={filters.species}
             options={speciesOptions}
             onChange={onChange("species")}

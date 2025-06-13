@@ -13,12 +13,12 @@ import { formatNumberShort } from "@utils/formatNumberShort"
 import { formatDate } from "@utils/formatDate"
 import { formatPrice } from "@utils/formatPrice"
 
-type Props = {
+type NoticesItemProps = {
   notice: Notice
   context?: "favorites" | "viewed" | "default"
 }
 
-const NoticesItem: React.FC<Props> = ({ notice, context = "default" }) => {
+const NoticesItem: React.FC<NoticesItemProps> = ({ notice, context = "default" }) => {
   const dispatch = useDispatch<AppDispatch>()
   const isLoggedIn = useSelector(selectIsLoggedIn)
   const favoritesIds = useSelector(selectFavoritesIds)
@@ -113,7 +113,7 @@ const NoticesItem: React.FC<Props> = ({ notice, context = "default" }) => {
           >
             <svg
               className={clsx(
-                "stroke-primary h-4.5 w-4.5 transition-all duration-200 ease-in",
+                "stroke-primary size-4.5",
                 isFavorite && isDefault ? "fill-primary" : "fill-none",
               )}
             >

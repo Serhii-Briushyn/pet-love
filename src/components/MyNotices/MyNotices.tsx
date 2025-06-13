@@ -56,7 +56,7 @@ const MyNotices = () => {
           {isFavorites ? emptyFavoritesMessage : emptyViewedMessage}
         </div>
       ) : (
-        <ul className="profile-scrollbar grid h-full gap-5 lg:grid-cols-2 xl:gap-6 xl:overflow-y-auto xl:pr-1">
+        <ul className="profile-scrollbar grid h-max gap-5 lg:grid-cols-2 xl:max-h-246 xl:gap-6 xl:overflow-y-auto xl:pr-1">
           {notices.map((notice) => (
             <NoticesItem key={notice._id} notice={notice} context={activeTab} />
           ))}

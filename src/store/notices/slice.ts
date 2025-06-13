@@ -45,6 +45,7 @@ const noticesSlice = createSlice({
       state.currentPage = 1
     },
     resetFilters(state) {
+      state.sorting = null
       state.filters = initialState.filters
       state.currentPage = 1
     },

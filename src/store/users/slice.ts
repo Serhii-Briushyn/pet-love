@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { register, login, logout, getCurrentUserFull, updateUserProfile } from "./operations"
+import {
+  register,
+  login,
+  logout,
+  getCurrentUserFull,
+  updateUserProfile,
+  addPet,
+  deletePet,
+} from "./operations"
 import { UsersState } from "./types"
 import { addToFavorites, removeFromFavorites } from "@store/notices/operations"
 
@@ -7,6 +15,8 @@ const initialState: UsersState = {
   user: null,
   favorites: [],
   viewed: [],
+  pets: [],
+  selectedPetId: "",
   token: localStorage.getItem("token"),
   favoritesIds: [],
   isLoggedIn: false,
@@ -16,7 +26,14 @@ const initialState: UsersState = {
 const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedPetId(state, action) {
+      state.selectedPetId = action.payload
+    },
+    clearSelectedPetId(state) {
+      state.selectedPetId = ""
+    },
+  },
   extraReducers: (builder) => {
     // -------------------- register --------------------
     builder
@@ -65,6 +82,7 @@ const userSlice = createSlice({
         state.user = action.payload
         state.favorites = action.payload.noticesFavorites
         state.viewed = action.payload.noticesViewed
+        state.pets = action.payload.pets
         const { noticesFavorites } = action.payload
         state.favoritesIds = noticesFavorites.map((notice) => notice._id)
       })
@@ -90,7 +108,31 @@ const userSlice = createSlice({
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.isError = action.payload as string
       })
+    // -------------------- addPet --------------------
+    builder
+      .addCase(addPet.pending, (state) => {
+        state.isError = null
+      })
+      .addCase(addPet.fulfilled, (state, action) => {
+        state.pets = action.payload.pets
+      })
+      .addCase(addPet.rejected, (state, action) => {
+        state.isError = action.payload as string
+      })
+    // -------------------- addPet --------------------
+    builder
+      .addCase(deletePet.pending, (state) => {
+        state.isError = null
+      })
+      .addCase(deletePet.fulfilled, (state, action) => {
+        state.pets = action.payload.pets
+      })
+      .addCase(deletePet.rejected, (state, action) => {
+        state.isError = action.payload as string
+      })
   },
 })
+
+export const { setSelectedPetId, clearSelectedPetId } = userSlice.actions
 
 export const usersReducer = userSlice.reducer

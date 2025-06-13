@@ -6,6 +6,8 @@ export interface UsersState {
   user: CurrentFullResponse | null
   favorites: Notice[]
   viewed: Notice[]
+  pets: Pet[]
+  selectedPetId: string
   token: string | null
   favoritesIds: string[]
   isLoggedIn: boolean
@@ -32,8 +34,8 @@ export type AuthResponse = {
 }
 
 export type EditRequest = {
-  name?: string
-  email?: string
+  name: string
+  email: string
   phone?: string
   avatar?: string
 }
@@ -88,5 +90,5 @@ export type DeletePetResponse = {
   avatar: string
   phone: string
   token: string
-  pets: Notice[]
+  pets: Pet[]
 }

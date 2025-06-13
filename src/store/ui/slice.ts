@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 interface UIState {
   isLoading: boolean
-  currentModal: null | "menu" | "approved" | "attention" | "notice" | "edit"
+  currentModal: null | "menu" | "approved" | "attention" | "notice" | "edit" | "confirm"
 }
 
 const initialState: UIState = {

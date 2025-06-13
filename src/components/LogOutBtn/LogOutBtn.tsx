@@ -28,7 +28,8 @@ const LogOutBtn: React.FC<LogOutProps> = ({ variant, isHome }) => {
       "bg-primary hover:bg-primary-hover flex w-full text-white lg:w-42": isMenuLight,
       "bg-secondary text-primary hover:bg-secondary-hover hidden w-34 lg:flex": isHeaderColor,
       "bg-primary hover:bg-primary-hover hidden w-34 text-white lg:flex": isHeaderLight,
-      "bg-secondary text-primary hover:bg-secondary-hover mt-5 flex w-28.5 lg:w-34": isSettings,
+      "bg-secondary text-primary hover:bg-secondary-hover mt-5 flex w-28.5 shrink-0 lg:w-34":
+        isSettings,
     },
   )
 

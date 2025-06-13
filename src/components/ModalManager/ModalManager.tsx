@@ -24,19 +24,22 @@ const ModalManager = () => {
     dispatch(closeModal())
   }
 
+  const isMenu = currentModal === "menu"
+  const isApproved = currentModal === "approved"
+  const isConfirm = currentModal === "confirm"
+  const isNotice = currentModal === "notice"
+  const isAttention = currentModal === "attention"
+  const isEdit = currentModal === "edit"
+
   return (
     <AnimatePresence>
       {currentModal && (
-        <Modal
-          variant={currentModal === "menu" ? "drawer" : "default"}
-          isHome={isHome}
-          onClose={handleClose}
-        >
-          {currentModal === "menu" && <BurgerMenu isHome={isHome} />}
-          {currentModal === "approved" && <ModalApproveAction />}
-          {currentModal === "notice" && <ModalNotice />}
-          {currentModal === "attention" && <ModalAttention />}
-          {currentModal === "edit" && <ModalEditUser />}
+        <Modal variant={isMenu ? "drawer" : "default"} isHome={isHome} onClose={handleClose}>
+          {isMenu && <BurgerMenu isHome={isHome} />}
+          {(isApproved || isConfirm) && <ModalApproveAction variant={currentModal} />}
+          {isNotice && <ModalNotice />}
+          {isAttention && <ModalAttention />}
+          {isEdit && <ModalEditUser />}
         </Modal>
       )}
     </AnimatePresence>

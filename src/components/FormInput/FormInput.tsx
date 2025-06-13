@@ -3,15 +3,17 @@ import { InputHTMLAttributes } from "react"
 import { FieldError } from "react-hook-form"
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  variant?: "profile" | "default"
   type: string
   placeholder: string
-  autoComplete: string
+  autoComplete?: string
   error?: FieldError
   touched?: boolean
   successMessage?: string
 }
 
 const FormInput = ({
+  variant = "default",
   type,
   placeholder,
   autoComplete,
@@ -21,11 +23,15 @@ const FormInput = ({
   value,
   ...rest
 }: FormInputProps) => {
+  const isDefault = variant === "default"
+  const isProfile = variant === "profile"
+
   const inputClass = clsx(
     "w-full rounded-4xl border p-3 transition-all duration-200 ease-in outline-none lg:p-4",
     {
       "border-red": error,
-      "border-green": touched && !error,
+      "border-green": isDefault && touched && !error,
+      "border-primary": isProfile && touched && !error,
       "hover:border-primary focus:border-primary border-black/15": !error && !touched,
     },
   )
@@ -40,7 +46,7 @@ const FormInput = ({
           autoComplete={autoComplete}
           {...rest}
         />
-        {touched && value && (
+        {isDefault && touched && value && (
           <div className="absolute top-1/2 right-3 h-4.5 w-4.5 -translate-y-1/2 lg:h-5.5 lg:w-5.5">
             {error ? (
               <svg className="stroke-red h-full w-full fill-none">
@@ -54,9 +60,9 @@ const FormInput = ({
           </div>
         )}
       </div>
-      {error && <div className="text-red text-[10px] lg:text-xs">{error.message}</div>}
-      {touched && !error && value && (
-        <div className="text-green text-[10px] lg:text-xs">{successMessage}</div>
+      {error && <p className="text-red text-[10px] lg:text-xs">{error.message}</p>}
+      {isDefault && touched && !error && value && (
+        <p className="text-green text-[10px] lg:text-xs">{successMessage}</p>
       )}
     </label>
   )

@@ -1,11 +1,10 @@
-export const uploadAvatarToCloudinary = async (file: File, userId: string) => {
+export const uploadImageToCloudinary = async (file: File) => {
   const formData = new FormData()
-  const timestamp = Date.now()
-  const uniqueFileName = `avatar_${userId}_${timestamp}`
+  const uniqueId = Date.now()
 
   formData.append("file", file)
-  formData.append("upload_preset", "avatar_upload")
-  formData.append("public_id", `pet-love-avatars/${uniqueFileName}`)
+  formData.append("upload_preset", "pet_love_upload")
+  formData.append("public_id", `pet-love/${uniqueId}`)
 
   const response = await fetch("https://api.cloudinary.com/v1_1/dwccgh4vu/image/upload", {
     method: "POST",

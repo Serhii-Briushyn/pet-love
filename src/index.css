@@ -38,7 +38,14 @@
 
   --color-pink: #f63d8c;
   --color-pink-light: #ffe0ef;
+
+  --rdp-selected-border: #f63d8c;
 }
+.no-hover-if-disabled[data-disabled="true"]:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 22px;
 }
