@@ -17,6 +17,7 @@ import RegisterPage from "@pages/RegisterPage/RegisterPage"
 import LoginPage from "@pages/LoginPage/LoginPage"
 import ProfilePage from "@pages/ProfilePage/ProfilePage"
 import AddPetPage from "@pages/AddPetPage/AddPetPage"
+import NotFoundPage from "@pages/NotFoundPage/NotFoundPage"
 
 function App() {
   useAuthInit()
@@ -62,7 +63,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Suspense>
