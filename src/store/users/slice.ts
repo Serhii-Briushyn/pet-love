@@ -45,6 +45,8 @@ const userSlice = createSlice({
         state.token = action.payload.token
       })
       .addCase(register.rejected, (state, action) => {
+        state.isLoggedIn = false
+        state.token = null
         state.isError = action.payload as string
       })
 
@@ -58,6 +60,8 @@ const userSlice = createSlice({
         state.token = action.payload.token
       })
       .addCase(login.rejected, (state, action) => {
+        state.isLoggedIn = false
+        state.token = null
         state.isError = action.payload as string
       })
 
@@ -66,8 +70,12 @@ const userSlice = createSlice({
       .addCase(logout.pending, (state) => {
         state.isError = null
       })
-      .addCase(logout.fulfilled, () => initialState)
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoggedIn = false
+        state.token = null
+      })
       .addCase(logout.rejected, (state, action) => {
+        state.isLoggedIn = false
         state.token = null
         state.isError = action.payload as string
       })
