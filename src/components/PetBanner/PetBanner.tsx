@@ -27,7 +27,7 @@ const PetBanner: React.FC<PetBannerProps> = ({ page }) => {
   const pet = petData[page]
 
   return (
-    <div className="absolute bottom-8 left-8 hidden w-76 gap-2 rounded-3xl bg-white p-4 lg:flex xl:bottom-24 xl:left-15">
+    <div className="dark:bg-dark-secondary absolute bottom-8 left-8 hidden w-76 gap-2 rounded-3xl bg-white p-4 lg:flex xl:bottom-24 xl:left-15">
       <div className="bg-secondary flex h-15 w-15 shrink-0 items-center justify-center rounded-full">
         <img
           className="h-auto w-8"
@@ -41,7 +41,7 @@ const PetBanner: React.FC<PetBannerProps> = ({ page }) => {
         <div className="flex items-center justify-between">
           <p className="text-primary text-base font-bold">{pet.name}</p>
           <p className="text-xs font-medium">
-            <span className="text-black/50">Birthday:</span> {pet.date}
+            <span className="text-black/50 dark:text-white/50">Birthday:</span> {pet.date}
           </p>
         </div>
         <p className="text-xs font-medium">{pet.description}</p>

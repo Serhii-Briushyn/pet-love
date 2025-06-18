@@ -38,7 +38,7 @@ const NoticesFilters = () => {
   const isAnyFilterActive = Object.values(filters).some((v) => v !== "") || sorting !== null
 
   return (
-    <div className="bg-secondary mb-10 rounded-4xl p-5 lg:px-8 lg:py-10 xl:px-10">
+    <div className="bg-secondary dark:bg-dark-secondary mb-10 rounded-4xl p-5 lg:px-8 lg:py-10 xl:px-10">
       <div className="flex flex-col gap-3 lg:gap-4 xl:flex-row">
         <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4 xl:contents">
           <SearchField variant="notices" value={filters.keyword} onSearch={onChange("keyword")} />

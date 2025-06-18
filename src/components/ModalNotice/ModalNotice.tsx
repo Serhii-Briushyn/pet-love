@@ -30,7 +30,7 @@ const ModalNotice = () => {
       : "#"
 
   return (
-    <div className="flex flex-col items-center rounded-4xl bg-white px-7 py-10 sm:w-83 lg:w-118 lg:p-10">
+    <div className="dark:bg-dark-secondary flex flex-col items-center rounded-4xl bg-white px-7 py-10 sm:w-83 lg:w-118 lg:p-10">
       <div className="relative mb-5 h-30 w-30 lg:mb-4 lg:h-37.5 lg:w-37.5">
         <img
           src={notice.imgURL}
@@ -54,19 +54,19 @@ const ModalNotice = () => {
 
       <ul className="mb-4 flex justify-center gap-3.5 text-center lg:gap-4">
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Name:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Name:</span>
           <span>{notice.name}</span>
         </li>
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Birthday:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Birthday:</span>
           <span>{formatDate(notice.birthday)}</span>
         </li>
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Sex:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Sex:</span>
           <span>{notice.sex}</span>
         </li>
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Species:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Species:</span>
           <span> {notice.species}</span>
         </li>
       </ul>

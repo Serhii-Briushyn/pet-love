@@ -1,6 +1,7 @@
+import clsx from "clsx"
+
 import { getPaginationPages } from "@utils/getPaginationPages"
 import { useScreenType } from "@utils/getScreenType"
-import clsx from "clsx"
 
 type PaginationProps = {
   currentPage: number
@@ -18,20 +19,22 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onChan
   const pages = getPaginationPages(currentPage, totalPages, isMobile)
 
   const base =
-    "w-10 h-10 flex items-center justify-center rounded-full border font-bold transition-all duration-200 ease-in lg:w-11 lg:h-11 lg:text-lg"
+    "flex h-10 w-10 items-center justify-center rounded-full border font-bold transition-all duration-200 ease-in lg:h-11 lg:w-11 lg:text-lg"
 
-  const active = "border-primary bg-primary text-white pointer-events-none"
+  const active = "border-primary bg-primary pointer-events-none text-white"
 
-  const defaultBtn = "border-black/5 cursor-pointer hover:border-primary"
+  const defaultBtn = "hover:border-primary cursor-pointer border-black/5 dark:border-white/40"
 
   const arrow =
-    "border-black/20 group cursor-pointer hover:border-primary disabled:border-black/5 disabled:pointer-events-none"
+    "group hover:border-primary cursor-pointer border-black/20 disabled:pointer-events-none disabled:border-black/5 dark:border-white/40 disabled:dark:dark:border-white/10"
 
-  const icon = "w-5 h-5 fill-black group-disabled:fill-black/50 lg:w-6 lg:h-6"
+  const icon = clsx(
+    "h-5 w-5 fill-black group-disabled:fill-black/50 lg:h-6 lg:w-6 dark:fill-white dark:group-disabled:fill-white/50",
+  )
 
   return (
     <div className="flex items-center justify-between lg:justify-center lg:gap-6">
-      <div className="mobile:gap-1.5 flex items-center">
+      <div className="flex items-center sm:gap-1.5">
         <button
           onClick={() => onChange(1)}
           disabled={currentPage === 1}
@@ -58,10 +61,13 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onChan
         </button>
       </div>
 
-      <div className="mobile:gap-2.5 flex items-center">
+      <div className="flex items-center sm:gap-2.5">
         {pages.map((p, idx) =>
           typeof p === "string" ? (
-            <span key={`dots-${idx}`} className={clsx(base, "pointer-events-none border-black/5")}>
+            <span
+              key={`dots-${idx}`}
+              className={clsx(base, "pointer-events-none border-black/5 dark:border-white/40")}
+            >
               ...
             </span>
           ) : (
@@ -76,7 +82,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onChan
         )}
       </div>
 
-      <div className="mobile:gap-1.5 flex items-center">
+      <div className="flex items-center sm:gap-1.5">
         <button
           onClick={() => onChange(currentPage + 1)}
           disabled={currentPage === totalPages}

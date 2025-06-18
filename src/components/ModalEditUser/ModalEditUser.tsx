@@ -75,7 +75,7 @@ const ModalEditUser = () => {
   }
 
   return (
-    <div className="flex flex-col items-center rounded-4xl bg-white px-5 py-10 sm:w-83 lg:w-120 lg:p-12.5">
+    <div className="dark:bg-dark-secondary flex flex-col items-center rounded-4xl bg-white px-5 py-10 sm:w-83 lg:w-120 lg:p-12.5">
       <h3 className="mb-6 text-lg font-bold">Edit information</h3>
 
       <form
@@ -86,16 +86,15 @@ const ModalEditUser = () => {
         <ImageUploader
           fileUrl={watch("avatar") || null}
           onFileChange={handleAvatarChange}
-          error={errors.avatar}
+          error={errors.avatar?.message}
           {...register("avatar")}
         />
         <FormInput
           type="text"
           placeholder="Name"
           autoComplete="name"
-          error={errors.name}
+          error={errors.name?.message}
           touched={touchedFields.name}
-          successMessage="Name looks good"
           value={watch("name")}
           {...register("name")}
         />
@@ -104,9 +103,8 @@ const ModalEditUser = () => {
           type="email"
           placeholder="Email"
           autoComplete="email"
-          error={errors.email}
+          error={errors.email?.message}
           touched={touchedFields.email}
-          successMessage="Email is valid"
           value={watch("email")}
           {...register("email")}
         />
@@ -115,9 +113,8 @@ const ModalEditUser = () => {
           type="tel"
           placeholder="+380"
           autoComplete="tel"
-          error={errors.phone}
+          error={errors.phone?.message}
           touched={touchedFields.phone}
-          successMessage="Phone number is valid"
           value={watch("phone")}
           {...register("phone")}
         />

@@ -26,7 +26,7 @@ const Header = () => {
     "top-0 right-1/2 z-50 container w-full translate-x-1/2 pt-7 pb-5 transition-all duration-300 ease-out lg:py-8",
     {
       "absolute bg-transparent px-10 lg:px-16 xl:px-24": isHome,
-      "bg-light fixed px-5 lg:px-8 xl:px-16": isDefault,
+      "bg-light dark:bg-dark-primary fixed px-5 lg:px-8 xl:px-16": isDefault,
       "translate-y-0": isDefault && showHeader,
       "-translate-y-full": isDefault && !showHeader,
     },
@@ -34,7 +34,7 @@ const Header = () => {
 
   const iconClass = clsx("h-full w-full", {
     "stroke-white": isHome,
-    "stroke-black": isDefault,
+    "stroke-black dark:stroke-white": isDefault,
   })
 
   return (

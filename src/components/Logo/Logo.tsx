@@ -8,7 +8,7 @@ type LogoProps = {
 const Logo: React.FC<LogoProps> = ({ isHome = false }) => {
   const textClass = clsx("flex items-end text-xl leading-none font-bold lg:text-3xl", {
     "text-white": isHome,
-    "text-black": !isHome,
+    "text-black dark:text-white": !isHome,
   })
 
   const iconClass = clsx("h-4 w-4 lg:h-6 lg:w-6", {

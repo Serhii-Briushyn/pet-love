@@ -8,7 +8,7 @@ const SortButton: React.FC<SortButtonProps> = ({ label, isActive, onClick }) => 
   <button
     type="button"
     onClick={onClick}
-    className={`hover:bg-primary flex h-10.5 cursor-pointer items-center gap-2 rounded-4xl px-3 transition-all duration-200 ease-in hover:text-white lg:h-12 lg:px-3.5 ${isActive ? "bg-primary text-white" : "bg-white text-black"} `}
+    className={`hover:bg-primary flex h-10.5 cursor-pointer items-center gap-2 rounded-4xl px-3 transition-all duration-200 ease-in hover:text-white lg:h-12 lg:px-3.5 ${isActive ? "bg-primary text-white" : "dark:bg-secondary bg-white text-black"} `}
   >
     {label}
     {isActive && (

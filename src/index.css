@@ -24,26 +24,35 @@
   --color-dark-primary: #2c2c2c;
   --color-dark-secondary: #383838;
 
+  /* yellow */
   --color-yellow: #f6b83d;
   --color-yellow-light: #fff4df;
+  --color-yellow-hover: #f9b020;
+  --color-yellow-light-hover: #fbe7c1;
 
+  /* purple */
   --color-purple: #8c3df6;
   --color-purple-light: #ede0ff;
+  --color-purple-hover: #7b2ce6;
+  --color-purple-light-hover: #e0d1ff;
 
+  /* blue */
   --color-blue: #3d8cf6;
   --color-blue-light: #dfeeff;
+  --color-blue-hover: #1f7af3;
+  --color-blue-light-hover: #cce4fd;
 
-  --color-green: #3df68c;
-  --color-green-light: #e0fff0;
+  /* green */
+  --color-green: #3dbf7a;
+  --color-green-light: #e0f9ec;
+  --color-green-hover: #35a96a;
+  --color-green-light-hover: #d0f0e2;
 
+  /* pink */
   --color-pink: #f63d8c;
   --color-pink-light: #ffe0ef;
-
-  --rdp-selected-border: #f63d8c;
-}
-.no-hover-if-disabled[data-disabled="true"]:hover {
-  background-color: transparent !important;
-  color: inherit !important;
+  --color-pink-hover: #e62c78;
+  --color-pink-light-hover: #fcd1e7;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -62,13 +71,8 @@
   background: transparent;
 }
 
-.scrollbar-hidden {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.scrollbar-hidden::-webkit-scrollbar {
-  display: none;
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.12); /* светлая тень для тёмной темы */
 }
 
 @media (min-width: 1280px) {
@@ -91,4 +95,22 @@
   .profile-scrollbar {
     scrollbar-gutter: stable;
   }
+
+  .dark .profile-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.no-hover-if-disabled[data-disabled="true"]:hover {
+  background-color: transparent !important;
+  color: inherit !important;
 }

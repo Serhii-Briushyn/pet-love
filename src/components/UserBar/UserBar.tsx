@@ -19,7 +19,7 @@ const UserBar: React.FC<UserBarProps> = ({ isHome }) => {
 
   const textClass = clsx("hidden text-xl font-bold lg:inline", {
     "text-white": isHome,
-    "text-black": !isHome,
+    "text-black dark:text-white": !isHome,
   })
 
   return (

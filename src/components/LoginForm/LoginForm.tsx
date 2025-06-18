@@ -44,7 +44,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex items-center justify-center rounded-4xl bg-white px-5 py-15 lg:p-17 xl:flex-1/2 xl:p-0">
+    <div className="dark:bg-dark-secondary flex items-center justify-center rounded-4xl bg-white px-5 py-15 lg:p-17 xl:flex-1/2 xl:p-0">
       <div className="w-full lg:w-106">
         <Title
           title="Log in"
@@ -58,22 +58,19 @@ const LoginForm = () => {
               type="email"
               placeholder="Email"
               autoComplete="email"
-              error={errors.email}
+              error={errors.email?.message}
               touched={touchedFields.email}
-              successMessage="Email is valid"
               value={watch("email")}
               {...register("email")}
             />
 
             <PasswordInput
-              type="password"
               placeholder="Password"
               autoComplete="password"
-              error={errors.password}
+              error={errors.password?.message}
               touched={touchedFields.password}
               show={showPassword}
               toggle={togglePasswordVisibility}
-              successMessage="Password is secure"
               value={watch("password")}
               {...register("password")}
             />

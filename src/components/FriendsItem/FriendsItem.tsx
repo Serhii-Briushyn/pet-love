@@ -8,7 +8,7 @@ type FriendItemProps = {
 
 const FriendsItem: React.FC<FriendItemProps> = ({ friend }) => {
   return (
-    <li className="relative flex gap-3.5 rounded-2xl bg-white px-5 py-10">
+    <li className="dark:bg-dark-secondary relative flex gap-3.5 rounded-2xl bg-white px-5 py-10">
       <div className="bg-secondary absolute top-3 right-3 rounded-4xl p-2">
         <p className="text-primary text-xs tracking-tight lg:text-sm">
           {getTodaySchedule(friend.workDays)}

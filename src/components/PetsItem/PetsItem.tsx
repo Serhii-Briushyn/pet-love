@@ -22,7 +22,7 @@ export const PetsItem: React.FC<PetsItemProps> = ({ pet }) => {
   }
 
   return (
-    <li className="relative flex gap-3.5 rounded-3xl border border-black/10 p-4 lg:py-5.5 xl:items-center xl:gap-6 xl:p-5">
+    <li className="relative flex gap-3.5 rounded-3xl border border-black/10 p-4 lg:py-5.5 xl:items-center xl:gap-6 xl:p-5 dark:border-white/10">
       <img
         src={imgURL}
         alt={species}
@@ -33,21 +33,21 @@ export const PetsItem: React.FC<PetsItemProps> = ({ pet }) => {
 
         <ul className="flex max-w-62 flex-wrap items-center gap-2.5 xl:justify-between">
           <li className="flex flex-col gap-1 leading-tight">
-            <span className="text-[10px] text-black/50">Name:</span>
+            <span className="text-[10px] text-black/50 dark:text-white/50">Name:</span>
             <span title={name} className="truncate text-xs">
               {name}
             </span>
           </li>
           <li className="flex flex-col gap-1 leading-tight">
-            <span className="text-[10px] text-black/50">Birthday:</span>
+            <span className="text-[10px] text-black/50 dark:text-white/50">Birthday:</span>
             <span className="truncate text-xs">{formatDate(birthday)}</span>
           </li>
           <li className="flex flex-col gap-1 leading-tight">
-            <span className="text-[10px] text-black/50">Sex:</span>
+            <span className="text-[10px] text-black/50 dark:text-white/50">Sex:</span>
             <span className="truncate text-xs">{capitalizeFirstLetter(sex)}</span>
           </li>
           <li className="flex flex-col gap-1 leading-tight">
-            <span className="text-[10px] text-black/50">Species:</span>
+            <span className="text-[10px] text-black/50 dark:text-white/50">Species:</span>
             <span className="truncate text-xs"> {capitalizeFirstLetter(species)}</span>
           </li>
         </ul>

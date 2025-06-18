@@ -52,7 +52,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <div className="flex items-center justify-center rounded-4xl bg-white p-5 lg:p-7 xl:flex-1/2 xl:p-0">
+    <div className="dark:bg-dark-secondary flex items-center justify-center rounded-4xl bg-white p-5 lg:p-7 xl:flex-1/2 xl:p-0">
       <div className="w-full lg:w-106">
         <Title
           title="Registration"
@@ -66,7 +66,7 @@ const RegisterForm = () => {
               type="text"
               placeholder="Name"
               autoComplete="name"
-              error={errors.name}
+              error={errors.name?.message}
               touched={touchedFields.name}
               successMessage="Name looks good"
               value={watch("name")}
@@ -77,7 +77,7 @@ const RegisterForm = () => {
               type="email"
               placeholder="Email"
               autoComplete="email"
-              error={errors.email}
+              error={errors.email?.message}
               touched={touchedFields.email}
               successMessage="Email is valid"
               value={watch("email")}
@@ -87,7 +87,7 @@ const RegisterForm = () => {
             <PasswordInput
               placeholder="Password"
               autoComplete="password"
-              error={errors.password}
+              error={errors.password?.message}
               touched={touchedFields.password}
               show={showPassword}
               toggle={togglePasswordVisibility}
@@ -99,7 +99,7 @@ const RegisterForm = () => {
             <PasswordInput
               placeholder="Confirm password"
               autoComplete="password"
-              error={errors.confirmPassword}
+              error={errors.confirmPassword?.message}
               touched={touchedFields.confirmPassword}
               show={showConfirmPassword}
               toggle={toggleConfirmPasswordVisibility}

@@ -16,7 +16,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ isHome }) => {
   const containerClass = clsx(
     "relative flex h-full w-55 items-end justify-center px-5 py-10 lg:w-94",
     {
-      "bg-white": isHome,
+      "dark:bg-dark-primary bg-white": isHome,
       "bg-primary": !isHome,
     },
   )

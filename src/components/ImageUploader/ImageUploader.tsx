@@ -1,11 +1,10 @@
-import { DEFAULT_AVATAR_URL } from "@constants/defaultUserData"
 import clsx from "clsx"
-import { FieldError } from "react-hook-form"
+import { DEFAULT_AVATAR_URL } from "@constants/defaultUserData"
 
 type ImageUploaderProps = {
   fileUrl: string | null
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  error?: FieldError
+  error?: string
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ fileUrl, onFileChange, error, ...rest }) => {
@@ -29,15 +28,14 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ fileUrl, onFileChange, er
             placeholder="Enter URL"
             {...rest}
             className={clsx(
-              "w-full truncate rounded-4xl border px-3 outline-none",
-              fileUrl ? "border-primary" : "border-black/15",
-              error && "border-red",
+              "hover:border-primary w-full truncate rounded-4xl border px-3 transition-all duration-200 ease-in outline-none",
+              error ? "border-red" : "border-black/15 dark:border-white/40",
             )}
           />
 
           <label
             title="Upload photo"
-            className="bg-secondary hover:bg-secondary-hover flex shrink-0 cursor-pointer items-center gap-2 rounded-4xl px-3 text-xs tracking-tight transition-all duration-200 ease-in lg:text-base"
+            className="bg-secondary hover:bg-secondary-hover flex shrink-0 cursor-pointer items-center gap-2 rounded-4xl px-3 text-xs tracking-tight text-black transition-all duration-200 ease-in lg:text-base"
           >
             Upload photo
             <svg className="stroke-primary size-4.5 fill-none">
@@ -46,7 +44,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ fileUrl, onFileChange, er
             <input type="file" accept="image/*" className="hidden" onChange={onFileChange} />
           </label>
         </div>
-        {error && <p className="text-red text-[10px] lg:text-xs">{error.message}</p>}
+        {error && <p className="text-red text-[10px] lg:text-xs">{error}</p>}
       </div>
     </div>
   )

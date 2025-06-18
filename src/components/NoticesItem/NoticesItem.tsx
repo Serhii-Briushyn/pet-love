@@ -50,7 +50,7 @@ const NoticesItem: React.FC<NoticesItemProps> = ({ notice, context = "default" }
   }
 
   return (
-    <li className="rounded-2xl bg-white p-6">
+    <li className="dark:bg-dark-secondary rounded-2xl bg-white p-6">
       <img
         src={notice.imgURL}
         alt={notice.title}
@@ -67,27 +67,32 @@ const NoticesItem: React.FC<NoticesItemProps> = ({ notice, context = "default" }
           {formatNumberShort(notice.popularity)}
         </span>
       </div>
-      <ul className="mb-4 flex items-center justify-between gap-3.5 lg:gap-4">
+      <ul
+        className={clsx(
+          "mb-4 flex items-center justify-between gap-3.5",
+          isDefault ? "lg:gap-4" : "lg:gap-1.5",
+        )}
+      >
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Name:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Name:</span>
           <span title={notice.name} className="line-clamp-1 break-all">
             {notice.name}
           </span>
         </li>
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Birthday:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Birthday:</span>
           <span className="line-clamp-1">{formatDate(notice.birthday)}</span>
         </li>
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Sex:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Sex:</span>
           <span className="line-clamp-1">{notice.sex}</span>
         </li>
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Species:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Species:</span>
           <span className="line-clamp-1"> {notice.species}</span>
         </li>
         <li className="flex flex-col gap-0.5 text-xs/tight">
-          <span className="text-[10px] text-black/50">Category:</span>
+          <span className="text-[10px] text-black/50 dark:text-white/50">Category:</span>
           <span className="line-clamp-1">{notice.category}</span>
         </li>
       </ul>

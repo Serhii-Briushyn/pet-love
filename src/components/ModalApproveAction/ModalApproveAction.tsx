@@ -47,7 +47,7 @@ const ModalApproveAction: React.FC<ModalApproveActionProps> = ({ variant }) => {
     "flex justify-center items-center rounded-4xl font-bold w-33 h-10.5 cursor-pointer transition-all duration-200 ease-in lg:h-12 lg:w-35"
 
   return (
-    <div className="flex flex-col items-center rounded-4xl bg-white px-7 py-10 lg:p-20">
+    <div className="dark:bg-dark-secondary flex flex-col items-center rounded-4xl bg-white px-7 py-10 lg:p-20">
       <div className="bg-secondary mb-5 flex h-20 w-20 items-center justify-center rounded-full">
         <img
           className="h-11 w-11"
@@ -69,7 +69,7 @@ const ModalApproveAction: React.FC<ModalApproveActionProps> = ({ variant }) => {
           Yes
         </button>
         <button
-          className={`${btnClass} bg-black/5 text-black hover:bg-black/10`}
+          className={`${btnClass} bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10`}
           onClick={handleCancel}
         >
           Cancel

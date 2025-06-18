@@ -40,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, children, variant = "default", i
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className={clsx("relative z-50", {
+        className={clsx("relative z-50 text-black dark:text-white", {
           "ml-auto h-full w-auto": isDrawer,
           "rounded-main": isDefault,
         })}
@@ -52,12 +52,20 @@ const Modal: React.FC<ModalProps> = ({ onClose, children, variant = "default", i
       >
         <button
           onClick={onClose}
-          className={clsx("absolute cursor-pointer", {
-            "top-7 right-5 z-10 h-8 w-8 lg:top-[39px] lg:right-8 lg:h-9 lg:w-9": isDrawer,
-            "top-5 right-5 h-6 w-6": isDefault,
-          })}
+          className={clsx(
+            "absolute cursor-pointer transition-all duration-200 ease-in hover:scale-110",
+            {
+              "top-7 right-5 z-10 h-8 w-8 lg:top-[39px] lg:right-8 lg:h-9 lg:w-9": isDrawer,
+              "top-5 right-5 h-6 w-6": isDefault,
+            },
+          )}
         >
-          <svg className={`h-full w-full ${isDrawer && !isHome ? "stroke-white" : "stroke-black"}`}>
+          <svg
+            className={clsx(
+              "h-full w-full dark:stroke-white",
+              isDrawer && !isHome ? "stroke-white" : "stroke-black",
+            )}
+          >
             <use href="/sprite.svg#icon-close" />
           </svg>
         </button>

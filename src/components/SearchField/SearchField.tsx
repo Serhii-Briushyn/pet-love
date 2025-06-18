@@ -31,10 +31,11 @@ const SearchField: React.FC<SearchFieldProps> = ({ variant, value, onSearch }) =
   const isNotices = variant === "notices"
 
   const inputClass = clsx(
-    "hover:border-primary focus:border-primary h-10.5 w-full rounded-4xl border pr-15 pl-3 transition-all duration-200 ease-in outline-none lg:h-12 lg:pl-3.5",
+    "hover:border-primary focus:border-primary h-10.5 w-full rounded-4xl border pr-15 pl-3 transition-all duration-200 ease-in outline-none lg:h-12 lg:pl-3.5 dark:border-white/40",
     {
       "border-black/15 lg:w-60": isNews,
-      "shrink-0 border-transparent bg-white placeholder:text-black lg:w-66": isNotices,
+      "dark:bg-dark-secondary shrink-0 border-transparent bg-white placeholder:text-black lg:w-66 dark:placeholder:text-white":
+        isNotices,
     },
   )
 
@@ -55,7 +56,7 @@ const SearchField: React.FC<SearchFieldProps> = ({ variant, value, onSearch }) =
             className="cursor-pointer transition-all duration-200 ease-in hover:scale-120"
             aria-label="Clear search"
           >
-            <svg className="h-4.5 w-4.5 fill-amber-200 stroke-black">
+            <svg className="h-4.5 w-4.5 fill-none stroke-black dark:stroke-white">
               <use href="/sprite.svg#icon-close" />
             </svg>
           </button>
@@ -65,7 +66,7 @@ const SearchField: React.FC<SearchFieldProps> = ({ variant, value, onSearch }) =
           className="cursor-pointer transition-all duration-200 ease-in hover:scale-120"
           aria-label="Search"
         >
-          <svg className="h-4.5 w-4.5 fill-none stroke-black">
+          <svg className="h-4.5 w-4.5 fill-none stroke-black dark:stroke-white">
             <use href="/sprite.svg#icon-search" />
           </svg>
         </button>

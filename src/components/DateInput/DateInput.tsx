@@ -23,21 +23,21 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange, error }) => {
   }
 
   const buttonClass = clsx(
-    "flex h-full w-full cursor-pointer items-center justify-between rounded-4xl border bg-white px-3 transition-all duration-200 ease-in lg:px-3.5",
+    "dark:bg-dark-secondary hover:border-primary focus:border-primary flex h-full w-full cursor-pointer items-center justify-between rounded-4xl border bg-white px-3 transition-all duration-200 ease-in lg:px-3.5",
     {
-      "hover:border-primary border-black/15": !error,
-      "border-primary": value && !error,
-      "text-black/50": !value && !error,
+      "text-black/50 dark:text-white/50": !value,
+      "border-black/15 dark:border-white/40": !error,
       "border-red": error,
     },
   )
+
   return (
     <div ref={wrapperRef} className="relative h-full w-full flex-1/2">
       <button type="button" onClick={toggleOpen} className={buttonClass}>
         {formattedDate || "Choose date"}
         <svg
           className={clsx(
-            "size-4.5 fill-none stroke-black transition-all duration-200 ease-in lg:size-5",
+            "size-4.5 fill-none stroke-black transition-all duration-200 ease-in lg:size-5 dark:stroke-white",
             { "rotate-180": isOpen },
           )}
         >
@@ -52,7 +52,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange, error }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-full z-10 mb-1 rounded-2xl border border-black/15 bg-white p-2"
+            className="dark:bg-dark-secondary absolute bottom-full z-10 mb-1 rounded-2xl border border-black/15 bg-white p-2 dark:border-white/40"
           >
             <DayPicker
               mode="single"
@@ -66,7 +66,8 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange, error }) => {
                 selected: "bg-primary border-primary text-white",
                 today: "text-primary",
                 dropdowns: "flex cursor-pointer gap-2 text-sm outline-none lg:text-base",
-                dropdown: "cursor-inherit absolute z-10 w-max p-2 text-sm opacity-0 lg:text-base",
+                dropdown:
+                  "dark:bg-dark-secondary cursor-inherit custom-scrollbar absolute z-10 w-max cursor-pointer p-2 text-sm opacity-0 lg:text-base",
                 caption_label: "relative inline-flex items-center whitespace-nowrap outline-none",
               }}
             />
