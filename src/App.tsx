@@ -1,4 +1,4 @@
-import { Suspense } from "react"
+import { lazy, Suspense } from "react"
 import { Route, Routes } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 
@@ -9,15 +9,15 @@ import PrivateRoute from "@components/PrivateRoute"
 import RestrictedRoute from "@components/RestrictedRoute"
 import Loader from "@components/Loader/Loader"
 
-import HomePage from "@pages/HomePage/HomePage"
-import NewsPage from "@pages/NewsPage/NewsPage"
-import NoticesPage from "@pages/NoticesPage/NoticesPage"
-import FriendsPage from "@pages/FriendsPage/FriendsPage"
-import RegisterPage from "@pages/RegisterPage/RegisterPage"
-import LoginPage from "@pages/LoginPage/LoginPage"
-import ProfilePage from "@pages/ProfilePage/ProfilePage"
-import AddPetPage from "@pages/AddPetPage/AddPetPage"
-import NotFoundPage from "@pages/NotFoundPage/NotFoundPage"
+const HomePage = lazy(() => import("@pages/HomePage/HomePage"))
+const NewsPage = lazy(() => import("@pages/NewsPage/NewsPage"))
+const NoticesPage = lazy(() => import("@pages/NoticesPage/NoticesPage"))
+const FriendsPage = lazy(() => import("@pages/FriendsPage/FriendsPage"))
+const RegisterPage = lazy(() => import("@pages/RegisterPage/RegisterPage"))
+const LoginPage = lazy(() => import("@pages/LoginPage/LoginPage"))
+const ProfilePage = lazy(() => import("@pages/ProfilePage/ProfilePage"))
+const AddPetPage = lazy(() => import("@pages/AddPetPage/AddPetPage"))
+const NotFoundPage = lazy(() => import("@pages/NotFoundPage/NotFoundPage"))
 
 function App() {
   useAuthInit()
