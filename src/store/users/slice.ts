@@ -45,8 +45,9 @@ const userSlice = createSlice({
         state.token = action.payload.token
       })
       .addCase(register.rejected, (state, action) => {
-        state.isLoggedIn = false
+        state.user = null
         state.token = null
+        state.isLoggedIn = false
         state.isError = action.payload as string
       })
 
@@ -60,8 +61,9 @@ const userSlice = createSlice({
         state.token = action.payload.token
       })
       .addCase(login.rejected, (state, action) => {
-        state.isLoggedIn = false
+        state.user = null
         state.token = null
+        state.isLoggedIn = false
         state.isError = action.payload as string
       })
 
@@ -71,12 +73,14 @@ const userSlice = createSlice({
         state.isError = null
       })
       .addCase(logout.fulfilled, (state) => {
-        state.isLoggedIn = false
+        state.user = null
         state.token = null
+        state.isLoggedIn = false
       })
       .addCase(logout.rejected, (state, action) => {
-        state.isLoggedIn = false
+        state.user = null
         state.token = null
+        state.isLoggedIn = false
         state.isError = action.payload as string
       })
     // -------------------- getCurrentUserFull --------------------
@@ -95,6 +99,9 @@ const userSlice = createSlice({
         state.favoritesIds = noticesFavorites.map((notice) => notice._id)
       })
       .addCase(getCurrentUserFull.rejected, (state, action) => {
+        state.user = null
+        state.token = null
+        state.isLoggedIn = false
         state.isError = action.payload as string
       })
     builder

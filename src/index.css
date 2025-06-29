@@ -76,6 +76,11 @@
 }
 
 @media (min-width: 1280px) {
+  :root {
+    scrollbar-gutter: stable;
+    background-color: var(--color-dark-primary);
+  }
+
   .profile-scrollbar::-webkit-scrollbar {
     width: 22px;
   }
